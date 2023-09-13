@@ -1,9 +1,3 @@
-interface AddressInformation {
-    prefecture: string;
-    city: string;
-    street_number: string;
-}
-
 interface CorpInformation {
     corp_number: string;
     process: string;
@@ -99,8 +93,6 @@ export interface CorpInfoRequestParamsFromName {
     divide?: number;
 }
 
-const toInt = (val: string | null, defaultVal = 0) => val == null ? defaultVal : parseInt(val); 
-
 export default class CorpNumberManager {
     #AppID: string;
     #Parser: DOMParser;
@@ -108,12 +100,15 @@ export default class CorpNumberManager {
         this.#AppID = ntaAppId;
         this.#Parser = new DOMParser();
     }
-    #ConvertXmlToJson(xmlText: string): CorpInfoResponse {
+    private static toInt(val: string | null, defaultVal = 0) {
+        return val == null ? defaultVal : parseInt(val);
+    }
+    private ConvertXmlToJson(xmlText: string): CorpInfoResponse {
         const doc = this.#Parser.parseFromString(xmlText, 'application/xml');
         const Res: CorpInfoResponse = {
             last_update_date: doc.getElementsByTagName('lastUpdateDate ')[0].nodeValue ?? '',
-            divide_number: toInt(doc.getElementsByTagName('divideNumber')[0].nodeValue),
-            divide_size_: toInt(doc.getElementsByTagName('divideSize')[0].nodeValue),
+            divide_number: CorpNumberManager.toInt(doc.getElementsByTagName('divideNumber')[0].nodeValue),
+            divide_size_: CorpNumberManager.toInt(doc.getElementsByTagName('divideSize')[0].nodeValue),
             corporations: Array.prototype.map.call(doc.getElementsByTagName('corporation'), (item: Element): CorpInformation => {
                 return {
                     corp_number: item.getElementsByTagName('corporateNumber')[0].nodeValue ?? '',
@@ -168,7 +163,7 @@ export default class CorpNumberManager {
         });
         return Res;
     }
-    #Request(requestType: string, parameters: string): Promise<CorpInfoResponse> {
+    private Request(requestType: string, parameters: string): Promise<CorpInfoResponse> {
         let statusCode = 200;
         return fetch(`https://api.houjin-bangou.nta.go.jp/4/${requestType}?id=${this.#AppID}&type=12&${parameters}`)
             .then(response => {
@@ -176,7 +171,7 @@ export default class CorpNumberManager {
                 return response.text();
             })
             .then(txt => {
-                if (statusCode === 200) return this.#ConvertXmlToJson(txt);
+                if (statusCode === 200) return this.ConvertXmlToJson(txt);
                 else throw new Error(`${statusCode}.${txt}`);
             });
     }
@@ -184,7 +179,7 @@ export default class CorpNumberManager {
         const parametersText: string = `number=${parameters.number}&history=${Number(
             parameters.contain_history ?? false
         )}`;
-        return this.#Request('num', parametersText);
+        return this.Request('num', parametersText);
     }
     getCorpInfoFromDiff(parameters: CorpInfoRequestParamsFromDiff): Promise<CorpInfoResponse> {
         const formattedParams = {
@@ -195,7 +190,7 @@ export default class CorpNumberManager {
             divide: parameters.divide,
         };
         const params = new URLSearchParams(CorpNumberManager.#RemoveNullKeys(formattedParams));
-        return this.#Request('diff', params.toString());
+        return this.Request('diff', params.toString());
     }
     getCorpInfoFromName(parameters: CorpInfoRequestParamsFromName): Promise<CorpInfoResponse> {
         const formattedParams = {
@@ -211,6 +206,6 @@ export default class CorpNumberManager {
             divide: parameters.divide,
         };
         const params = new URLSearchParams(CorpNumberManager.#RemoveNullKeys(formattedParams));
-        return this.#Request('name', params.toString());
+        return this.Request('name', params.toString());
     }
 }
