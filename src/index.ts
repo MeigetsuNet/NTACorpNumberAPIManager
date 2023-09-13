@@ -156,9 +156,13 @@ export default class CorpNumberManager {
         return Res;
     }
     static #RemoveNullKeys(parameters) {
-        const Keys = Object.keys(parameters).filter(i => parameters[i] !== null);
+        const Keys = Object.keys(parameters).filter(i => parameters[i] !== null && parameters[i].length > 0);
         const Res = {};
         Keys.forEach(i => {
+            if (typeof Res[i] === 'object') {
+                if (Array.isArray(Res[i])) Res[i] = Res[i].map(d => CorpNumberManager.RemoveNullKeys(d));
+                else Res[i] = CorpNumberManager.RemoveNullKeys(Res[i]);
+            }
             Res[i] = parameters[i];
         });
         return Res;
