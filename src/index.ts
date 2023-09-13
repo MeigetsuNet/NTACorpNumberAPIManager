@@ -153,9 +153,9 @@ export default class CorpNumberManager {
                 };
             })
         };
-        return Res;
+        return CorpNumberManager.RemoveNullKeys(Res) as CorpInfoResponse;
     }
-    static #RemoveNullKeys(parameters) {
+    private static RemoveNullKeys(parameters) {
         const Keys = Object.keys(parameters).filter(i => parameters[i] !== null && parameters[i].length > 0);
         const Res = {};
         Keys.forEach(i => {
@@ -193,7 +193,7 @@ export default class CorpNumberManager {
             kind: parameters.corp_type,
             divide: parameters.divide,
         };
-        const params = new URLSearchParams(CorpNumberManager.#RemoveNullKeys(formattedParams));
+        const params = new URLSearchParams(CorpNumberManager.RemoveNullKeys(formattedParams));
         return this.Request('diff', params.toString());
     }
     getCorpInfoFromName(parameters: CorpInfoRequestParamsFromName): Promise<CorpInfoResponse> {
@@ -209,7 +209,7 @@ export default class CorpNumberManager {
             to: parameters.corp_number_reserve == null ? undefined : parameters.corp_number_reserve.to,
             divide: parameters.divide,
         };
-        const params = new URLSearchParams(CorpNumberManager.#RemoveNullKeys(formattedParams));
+        const params = new URLSearchParams(CorpNumberManager.RemoveNullKeys(formattedParams));
         return this.Request('name', params.toString());
     }
 }
