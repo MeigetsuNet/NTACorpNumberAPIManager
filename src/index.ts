@@ -109,49 +109,53 @@ export default class CorpNumberManager {
             last_update_date: doc.getElementsByTagName('lastUpdateDate ')[0].nodeValue ?? '',
             divide_number: CorpNumberManager.toInt(doc.getElementsByTagName('divideNumber')[0].nodeValue),
             divide_size_: CorpNumberManager.toInt(doc.getElementsByTagName('divideSize')[0].nodeValue),
-            corporations: Array.prototype.map.call(doc.getElementsByTagName('corporation'), (item: Element): CorpInformation => {
-                return {
-                    corp_number: item.getElementsByTagName('corporateNumber')[0].nodeValue ?? '',
-                    process: item.getElementsByTagName('process')[0].nodeValue ?? '',
-                    correct: item.getElementsByTagName('correct')[0].nodeValue ?? '',
-                    update_date: item.getElementsByTagName('updateDate')[0].nodeValue ?? '',
-                    change_date: item.getElementsByTagName('changeDate')[0].nodeValue ?? '',
-                    name: item.getElementsByTagName('name')[0].nodeValue ?? '',
-                    name_image_id: item.getElementsByTagName('nameImageId')[0].nodeValue ?? '',
-                    name_ruby: item.getElementsByTagName('furigana')[0].nodeValue ,
-                    kind: item.getElementsByTagName('kind')[0].nodeValue ?? '',
-                    address: {
-                        text: {
-                            prefecture: item.getElementsByTagName('prefectureName')[0].nodeValue ?? '',
-                            city: item.getElementsByTagName('cityName')[0].nodeValue ?? '',
-                            street_number: item.getElementsByTagName('streetNumber')[0].nodeValue ?? ''
+            corporations: Array.prototype.map.call(
+                doc.getElementsByTagName('corporation'),
+                (item: Element): CorpInformation => {
+                    return {
+                        corp_number: item.getElementsByTagName('corporateNumber')[0].nodeValue ?? '',
+                        process: item.getElementsByTagName('process')[0].nodeValue ?? '',
+                        correct: item.getElementsByTagName('correct')[0].nodeValue ?? '',
+                        update_date: item.getElementsByTagName('updateDate')[0].nodeValue ?? '',
+                        change_date: item.getElementsByTagName('changeDate')[0].nodeValue ?? '',
+                        name: item.getElementsByTagName('name')[0].nodeValue ?? '',
+                        name_image_id: item.getElementsByTagName('nameImageId')[0].nodeValue ?? '',
+                        name_ruby: item.getElementsByTagName('furigana')[0].nodeValue,
+                        kind: item.getElementsByTagName('kind')[0].nodeValue ?? '',
+                        address: {
+                            text: {
+                                prefecture: item.getElementsByTagName('prefectureName')[0].nodeValue ?? '',
+                                city: item.getElementsByTagName('cityName')[0].nodeValue ?? '',
+                                street_number: item.getElementsByTagName('streetNumber')[0].nodeValue ?? '',
+                            },
+                            code: {
+                                prefecture: item.getElementsByTagName('prefectureCode')[0].nodeValue ?? '',
+                                city: item.getElementsByTagName('cityCode')[0].nodeValue ?? '',
+                            },
+                            post_code: item.getElementsByTagName('postCode')[0].nodeValue ?? '',
+                            image_id: item.getElementsByTagName('addressImageId')[0].nodeValue ?? '',
+                            outside: item.getElementsByTagName('addressOutside')[0].nodeValue ?? '',
+                            outside_image_id: item.getElementsByTagName('addressOutsideImageId')[0].nodeValue ?? '',
                         },
-                        code: {
-                            prefecture: item.getElementsByTagName('prefectureCode')[0].nodeValue ?? '',
-                            city: item.getElementsByTagName('cityCode')[0].nodeValue ?? ''
+                        close: {
+                            date: item.getElementsByTagName('closeDate')[0].nodeValue,
+                            cause: item.getElementsByTagName('closeCause')[0].nodeValue,
                         },
-                        post_code: item.getElementsByTagName('postCode')[0].nodeValue ?? '',
-                        image_id: item.getElementsByTagName('addressImageId')[0].nodeValue ?? '',
-                        outside: item.getElementsByTagName('addressOutside')[0].nodeValue ?? '',
-                        outside_image_id: item.getElementsByTagName('addressOutsideImageId')[0].nodeValue ?? '',
-                    },
-                    close: {
-                        date: item.getElementsByTagName('closeDate')[0].nodeValue ,
-                        cause: item.getElementsByTagName('closeCause')[0].nodeValue ,
-                    },
-                    successor_corporate_number: item.getElementsByTagName('successorCorporateNumber')[0].nodeValue ?? '',
-                    change_cause: item.getElementsByTagName('changeCause')[0].nodeValue ?? '',
-                    assignment_date: item.getElementsByTagName('assignmentDate')[0].nodeValue ?? '',
-                    latest: item.getElementsByTagName('latest')[0].nodeValue ?? '',
-                    en: {
-                        name: item.getElementsByTagName('enName')[0].nodeValue,
-                        prefecture: item.getElementsByTagName('enPrefectureName')[0].nodeValue,
-                        city: item.getElementsByTagName('enCityName')[0].nodeValue,
-                        address_outside: item.getElementsByTagName('enAddressOutside')[0].nodeValue,
-                    },
-                    ignore: item.getElementsByTagName('hihyoji')[0].nodeValue
-                };
-            })
+                        successor_corporate_number:
+                            item.getElementsByTagName('successorCorporateNumber')[0].nodeValue ?? '',
+                        change_cause: item.getElementsByTagName('changeCause')[0].nodeValue ?? '',
+                        assignment_date: item.getElementsByTagName('assignmentDate')[0].nodeValue ?? '',
+                        latest: item.getElementsByTagName('latest')[0].nodeValue ?? '',
+                        en: {
+                            name: item.getElementsByTagName('enName')[0].nodeValue,
+                            prefecture: item.getElementsByTagName('enPrefectureName')[0].nodeValue,
+                            city: item.getElementsByTagName('enCityName')[0].nodeValue,
+                            address_outside: item.getElementsByTagName('enAddressOutside')[0].nodeValue,
+                        },
+                        ignore: item.getElementsByTagName('hihyoji')[0].nodeValue,
+                    };
+                }
+            ),
         };
         return CorpNumberManager.RemoveNullKeys(Res) as CorpInfoResponse;
     }
