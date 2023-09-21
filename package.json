@@ -5,7 +5,7 @@
     "main": "src/index.ts",
     "scripts": {
         "prettier": "prettier --write --end-of-line crlf .",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "ts-mocha -p ./tsconfig.json ./tests/*.ts"
     },
     "author": "Meigetsu/Meigetsu Net",
     "license": "UNLICENSED",
