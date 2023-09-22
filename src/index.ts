@@ -96,15 +96,7 @@ export interface CorpInfoRequestParamsFromName {
 }
 
 export default class CorpNumberManager {
-    #AppID: string;
-    #Parser: DOMParser;
-    constructor(ntaAppId: string) {
-        this.#AppID = ntaAppId;
-        this.#Parser = new DOMParser();
-    }
-    private static toInt(val: string | null, defaultVal = 0) {
-        return val == null ? defaultVal : parseInt(val);
-    }
+    constructor(private readonly ntaAppId: string) {}
     private ConvertXmlToJson(xmlText: string): CorpInfoResponse {
         const json = JSON.parse(xml2json(xmlText));
         const MainObject = json.elements[0].elements;
