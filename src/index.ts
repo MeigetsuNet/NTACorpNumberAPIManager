@@ -1,3 +1,5 @@
+import { xml2json } from 'xml-js';
+
 interface CorpInformation {
     corp_number: string;
     process: string;
@@ -104,76 +106,88 @@ export default class CorpNumberManager {
         return val == null ? defaultVal : parseInt(val);
     }
     private ConvertXmlToJson(xmlText: string): CorpInfoResponse {
-        const doc = this.#Parser.parseFromString(xmlText, 'application/xml');
-        const Res: CorpInfoResponse = {
-            last_update_date: doc.getElementsByTagName('lastUpdateDate ')[0].nodeValue ?? '',
-            divide_number: CorpNumberManager.toInt(doc.getElementsByTagName('divideNumber')[0].nodeValue),
-            divide_size_: CorpNumberManager.toInt(doc.getElementsByTagName('divideSize')[0].nodeValue),
-            corporations: Array.prototype.map.call(
-                doc.getElementsByTagName('corporation'),
-                (item: Element): CorpInformation => {
-                    return {
-                        corp_number: item.getElementsByTagName('corporateNumber')[0].nodeValue ?? '',
-                        process: item.getElementsByTagName('process')[0].nodeValue ?? '',
-                        correct: item.getElementsByTagName('correct')[0].nodeValue ?? '',
-                        update_date: item.getElementsByTagName('updateDate')[0].nodeValue ?? '',
-                        change_date: item.getElementsByTagName('changeDate')[0].nodeValue ?? '',
-                        name: item.getElementsByTagName('name')[0].nodeValue ?? '',
-                        name_image_id: item.getElementsByTagName('nameImageId')[0].nodeValue ?? '',
-                        name_ruby: item.getElementsByTagName('furigana')[0].nodeValue,
-                        kind: item.getElementsByTagName('kind')[0].nodeValue ?? '',
-                        address: {
-                            text: {
-                                prefecture: item.getElementsByTagName('prefectureName')[0].nodeValue ?? '',
-                                city: item.getElementsByTagName('cityName')[0].nodeValue ?? '',
-                                street_number: item.getElementsByTagName('streetNumber')[0].nodeValue ?? '',
-                            },
-                            code: {
-                                prefecture: item.getElementsByTagName('prefectureCode')[0].nodeValue ?? '',
-                                city: item.getElementsByTagName('cityCode')[0].nodeValue ?? '',
-                            },
-                            post_code: item.getElementsByTagName('postCode')[0].nodeValue ?? '',
-                            image_id: item.getElementsByTagName('addressImageId')[0].nodeValue ?? '',
-                            outside: item.getElementsByTagName('addressOutside')[0].nodeValue ?? '',
-                            outside_image_id: item.getElementsByTagName('addressOutsideImageId')[0].nodeValue ?? '',
-                        },
-                        close: {
-                            date: item.getElementsByTagName('closeDate')[0].nodeValue,
-                            cause: item.getElementsByTagName('closeCause')[0].nodeValue,
-                        },
-                        successor_corporate_number:
-                            item.getElementsByTagName('successorCorporateNumber')[0].nodeValue ?? '',
-                        change_cause: item.getElementsByTagName('changeCause')[0].nodeValue ?? '',
-                        assignment_date: item.getElementsByTagName('assignmentDate')[0].nodeValue ?? '',
-                        latest: item.getElementsByTagName('latest')[0].nodeValue ?? '',
-                        en: {
-                            name: item.getElementsByTagName('enName')[0].nodeValue,
-                            prefecture: item.getElementsByTagName('enPrefectureName')[0].nodeValue,
-                            city: item.getElementsByTagName('enCityName')[0].nodeValue,
-                            address_outside: item.getElementsByTagName('enAddressOutside')[0].nodeValue,
-                        },
-                        ignore: item.getElementsByTagName('hihyoji')[0].nodeValue,
-                    };
-                }
-            ),
+        const json = JSON.parse(xml2json(xmlText));
+        const MainObject = json.elements[0].elements;
+        const GetElements = (key: string, Root: any[]) => Root.filter(i => i.name === key);
+        const GetElementValue = obj => {
+            if (obj.elements == null) return undefined;
+            return obj.elements[0].text;
         };
-        return CorpNumberManager.RemoveNullKeys(Res) as CorpInfoResponse;
+        return {
+            last_update_date: GetElementValue(GetElements('lastUpdateDate', MainObject)[0]),
+            divide_number: GetElementValue(GetElements('divideNumber', MainObject)[0]),
+            divide_size: GetElementValue(GetElements('divideSize', MainObject)[0]),
+            corporations: GetElements('corporation', MainObject).map(item => {
+                const e = item.elements;
+                let Data = {
+                    corp_number: GetElementValue(GetElements('corporateNumber', e)[0]),
+                    process: GetElementValue(GetElements('process', e)[0]),
+                    correct: GetElementValue(GetElements('correct', e)[0]),
+                    update_date: GetElementValue(GetElements('updateDate', e)[0]),
+                    change_date: GetElementValue(GetElements('changeDate', e)[0]),
+                    name: GetElementValue(GetElements('name', e)[0]),
+                    name_image_id: GetElementValue(GetElements('nameImageId', e)[0]),
+                    name_ruby: GetElementValue(GetElements('furigana', e)[0]),
+                    kind: GetElementValue(GetElements('kind', e)[0]),
+                    address: {
+                        text: {
+                            prefecture: GetElementValue(GetElements('prefectureName', e)[0]),
+                            city: GetElementValue(GetElements('cityName', e)[0]),
+                            street_number: GetElementValue(GetElements('streetNumber', e)[0]),
+                        },
+                        code: {
+                            prefecture: GetElementValue(GetElements('prefectureCode', e)[0]),
+                            city: GetElementValue(GetElements('cityCode', e)[0]),
+                        },
+                        post_code: GetElementValue(GetElements('postCode', e)[0]),
+                        image_id: GetElementValue(GetElements('addressImageId', e)[0]),
+                        outside: GetElementValue(GetElements('addressOutside', e)[0]),
+                        outside_image_id: GetElementValue(GetElements('addressOutsideImageId', e)[0]),
+                    },
+                    close: {
+                        date: GetElementValue(GetElements('closeDate', e)[0]),
+                        cause: GetElementValue(GetElements('closeCause', e)[0]),
+                    },
+                    successor_corporate_number: GetElementValue(GetElements('successorCorporateNumber', e)[0]),
+                    change_cause: GetElementValue(GetElements('changeCause', e)[0]),
+                    assignment_date: GetElementValue(GetElements('assignmentDate', e)[0]),
+                    latest: GetElementValue(GetElements('latest', e)[0]),
+                    en: {
+                        name: GetElementValue(GetElements('enName', e)[0]),
+                        prefecture: GetElementValue(GetElements('enPrefectureName', e)[0]),
+                        city: GetElementValue(GetElements('enCityName', e)[0]),
+                        address_outside: GetElementValue(GetElements('enAddressOutside', e)[0]),
+                    },
+                    ignore: GetElementValue(GetElements('hihyoji', e)[0]),
+                };
+                return JSON.parse(JSON.stringify(Data));
+            }),
+        };
     }
     private static RemoveNullKeys(parameters) {
-        const Keys = Object.keys(parameters).filter(i => parameters[i] !== null && parameters[i].length > 0);
-        const Res = {};
-        Keys.forEach(i => {
-            if (typeof Res[i] === 'object') {
-                if (Array.isArray(Res[i])) Res[i] = Res[i].map(d => CorpNumberManager.RemoveNullKeys(d));
-                else Res[i] = CorpNumberManager.RemoveNullKeys(Res[i]);
-            }
-            Res[i] = parameters[i];
+        const Keys = Object.keys(parameters).filter(i => {
+            if (parameters[i] == null) return false;
+            return typeof parameters[i] === 'object' && !Array.isArray(parameters[i])
+                ? Object.keys(parameters[i]).length > 0
+                : parameters[i].length > 0;
         });
+        const Res = {};
+        let BeforeKeyCount = 0;
+        do {
+            BeforeKeyCount = Object.keys(Res).length;
+            Keys.forEach(i => {
+                if (typeof Res[i] === 'object') {
+                    if (Array.isArray(Res[i])) Res[i] = Res[i].map(d => CorpNumberManager.RemoveNullKeys(d));
+                    else Res[i] = CorpNumberManager.RemoveNullKeys(Res[i]);
+                }
+                Res[i] = parameters[i];
+            });
+        } while (BeforeKeyCount !== Object.keys(Res).length);
         return Res;
     }
     private Request(requestType: string, parameters: string): Promise<CorpInfoResponse> {
         let statusCode = 200;
-        return fetch(`https://api.houjin-bangou.nta.go.jp/4/${requestType}?id=${this.#AppID}&type=12&${parameters}`)
+        return fetch(`https://api.houjin-bangou.nta.go.jp/4/${requestType}?id=${this.ntaAppId}&type=12&${parameters}`)
             .then(response => {
                 statusCode = response.status;
                 return response.text();
