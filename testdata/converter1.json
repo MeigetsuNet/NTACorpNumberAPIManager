@@ -1,32 +1,39 @@
 {
     "corporations": {
-        "lastUpdateDate": "2023-09-13",
+        "last_update_date": "2023-09-13",
         "count": "1",
-        "divideNumber": "1",
-        "divideSize": "1",
+        "divide_number": "1",
+        "divide_size": "1",
         "corporation": [
             {
-                "sequenceNumber": "1",
-                "corporateNumber": "1000011000005",
+                "corp_number": "1000011000005",
                 "process": "01",
                 "correct": "1",
-                "updateDate": "2018-04-02",
-                "changeDate": "2015-10-05",
+                "update_date": "2018-04-02",
+                "change_date": "2015-10-05",
                 "name": "国立国会図書館",
+                "name_ruby": "コクリツコッカイトショカン",
                 "kind": "101",
-                "prefectureName": "東京都",
-                "cityName": "千代田区",
-                "streetNumber": "永田町１丁目１０－１",
-                "prefectureCode": "13",
-                "cityCode": "101",
-                "postCode": "1000014",
-                "assignmentDate": "2015-10-05",
+                "address": {
+                    "text": {
+                        "prefecture": "東京都",
+                        "city": "千代田区",
+                        "street_number": "永田町１丁目１０－１"
+                    },
+                    "code": {
+                        "prefecture": "13",
+                        "city": "101"
+                    },
+                    "post_code": "1000014"
+                },
+                "assignment_date": "2015-10-05",
                 "latest": "1",
-                "enName": "National Diet Library",
-                "enPrefectureName": "Tokyo",
-                "enCityName": "1-10-1,Nagatacho, Chiyoda ku",
-                "furigana": "コクリツコッカイトショカン",
-                "hihyoji": "0"
+                "en": {
+                    "name": "National Diet Library",
+                    "prefecture": "Tokyo",
+                    "city": "1-10-1,Nagatacho, Chiyoda ku"
+                },
+                "ignore": "0"
             }
         ]
     }
