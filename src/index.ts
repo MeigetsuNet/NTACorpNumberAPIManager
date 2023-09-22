@@ -6,7 +6,7 @@ interface CorpInformation {
     change_date: string;
     name: string;
     name_image_id: string;
-    name_ruby: string | null;
+    name_ruby?: string;
     kind: string;
     address: {
         text: {
@@ -23,7 +23,7 @@ interface CorpInformation {
         outside: string;
         outside_image_id: string;
     };
-    close: {
+    close?: {
         date: string | null;
         cause: string | null;
     };
@@ -31,7 +31,7 @@ interface CorpInformation {
     change_cause: string;
     assignment_date: string;
     latest: string;
-    en: {
+    en?: {
         name: string | null;
         prefecture: string | null;
         city: string | null;
@@ -60,8 +60,8 @@ export enum CorpType {
 
 export interface CorpInfoResponse {
     last_update_date: string;
-    divide_number: number;
-    divide_size_: number;
+    divide_number: string;
+    divide_size: string;
     corporations: CorpInformation[];
 }
 
