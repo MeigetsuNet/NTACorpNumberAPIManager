@@ -9,26 +9,27 @@ export default class CorpNumberManager {
     private static ConvertXmlToJson(xmlText: string): CorpInfoResponse {
         const json = JSON.parse(xml2json(xmlText));
         const MainObject = json.elements[0].elements;
-        const GetElements = (key: string, Root: any[]) => Root.filter(i => i.name === key);
+        const GetElements = (key: string, Root) => Root.filter(i => i.name === key);
         const GetElementValue = obj => {
             if (obj.elements == null) return undefined;
             return obj.elements[0].text;
         };
+        const IsEmptyObject = obj => Object.keys(obj).filter(i => obj[i] != null).length === 0;
         const GetAddress = element => {
             const GetAddressText = () => {
                 const resObj = {
-                    prefecture: GetElementValue(GetElements('prefectureName', element)),
-                    city: GetElementValue(GetElements('cityName', element)),
-                    street_number: GetElementValue(GetElements('streetNumber', element)),
+                    prefecture: GetElementValue(GetElements('prefectureName', element)[0]),
+                    city: GetElementValue(GetElements('cityName', element)[0]),
+                    street_number: GetElementValue(GetElements('streetNumber', element)[0]),
                 };
-                return Object.keys(resObj).filter(i => resObj[i] !== null) ? undefined : resObj;
+                return IsEmptyObject(resObj) ? undefined : resObj;
             };
             const GetAddressCode = () => {
                 const resObj = {
                     prefecture: GetElementValue(GetElements('prefectureCode', element)[0]),
                     city: GetElementValue(GetElements('cityCode', element)[0]),
                 };
-                return Object.keys(resObj).filter(i => resObj[i] !== null) ? undefined : resObj;
+                return IsEmptyObject(resObj) ? undefined : resObj;
             };
             const resObj = {
                 text: GetAddressText(),
@@ -38,14 +39,15 @@ export default class CorpNumberManager {
                 outside: GetElementValue(GetElements('addressOutside', element)[0]),
                 outside_image_id: GetElementValue(GetElements('addressOutsideImageId', element)[0]),
             };
-            return Object.keys(resObj).filter(i => resObj[i] !== null) ? undefined : resObj;
+            return IsEmptyObject(resObj) ? undefined : resObj;
         };
         const GetCloseInfo = element => {
             const resObj = {
                 date: GetElementValue(GetElements('closeDate', element)[0]),
                 cause: GetElementValue(GetElements('closeCause', element)[0]),
             };
-            return Object.keys(resObj).filter(i => resObj[i] !== null) ? undefined : resObj;
+            console.log(Object.keys(resObj).filter(i => resObj[i] !== null).length);
+            return IsEmptyObject(resObj) ? undefined : resObj;
         };
         const GetEnglishInfo = element => {
             const resObj = {
@@ -54,7 +56,7 @@ export default class CorpNumberManager {
                 city: GetElementValue(GetElements('enCityName', element)[0]),
                 address_outside: GetElementValue(GetElements('enAddressOutside', element)[0]),
             };
-            return Object.keys(resObj).filter(i => resObj[i] !== null) ? undefined : resObj;
+            return IsEmptyObject(resObj) ? undefined : resObj;
         };
         return {
             last_update_date: GetElementValue(GetElements('lastUpdateDate', MainObject)[0]),
@@ -62,7 +64,7 @@ export default class CorpNumberManager {
             divide_size: GetElementValue(GetElements('divideSize', MainObject)[0]),
             corporations: GetElements('corporation', MainObject).map(item => {
                 const e = item.elements;
-                let Data = {
+                const Data = {
                     corp_number: GetElementValue(GetElements('corporateNumber', e)[0]),
                     process: GetElementValue(GetElements('process', e)[0]),
                     correct: GetElementValue(GetElements('correct', e)[0]),
