@@ -6,7 +6,7 @@ import { CorpInfoResponse } from './CorpInfoResponse';
 
 export default class CorpNumberManager {
     constructor(private readonly ntaAppId: string) {}
-    private ConvertXmlToJson(xmlText: string): CorpInfoResponse {
+    private static ConvertXmlToJson(xmlText: string): CorpInfoResponse {
         const json = JSON.parse(xml2json(xmlText));
         const MainObject = json.elements[0].elements;
         const GetElements = (key: string, Root: any[]) => Root.filter(i => i.name === key);
@@ -114,7 +114,7 @@ export default class CorpNumberManager {
                 return response.text();
             })
             .then(txt => {
-                if (statusCode === 200) return this.ConvertXmlToJson(txt);
+                if (statusCode === 200) return CorpNumberManager.ConvertXmlToJson(txt);
                 else throw new Error(`${statusCode}.${txt}`);
             });
     }
