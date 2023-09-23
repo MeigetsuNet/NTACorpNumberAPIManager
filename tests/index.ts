@@ -3,7 +3,6 @@ import CorpNumberManager from '../src';
 // eslint-disable-next-line node/no-extraneous-import
 import { describe, it } from 'mocha';
 import assert from 'assert';
-import { xml2json } from 'xml-js';
 
 describe('CorpNumberManager test', function () {
     it('Converter test 1', function () {
