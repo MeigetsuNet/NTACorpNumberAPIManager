@@ -130,4 +130,5 @@ dist
 # Local History for Visual Studio Code
 .history/
 
-
+# Test Export Data
+result*.json
