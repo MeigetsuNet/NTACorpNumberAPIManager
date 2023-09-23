@@ -1,40 +1,37 @@
 {
-    "corporations": {
-        "last_update_date": "2023-09-13",
-        "count": "1",
-        "divide_number": "1",
-        "divide_size": "1",
-        "corporation": [
-            {
-                "corp_number": "1000011000005",
-                "process": "01",
-                "correct": "1",
-                "update_date": "2018-04-02",
-                "change_date": "2015-10-05",
-                "name": "国立国会図書館",
-                "name_ruby": "コクリツコッカイトショカン",
-                "kind": "101",
-                "address": {
-                    "text": {
-                        "prefecture": "東京都",
-                        "city": "千代田区",
-                        "street_number": "永田町１丁目１０－１"
-                    },
-                    "code": {
-                        "prefecture": "13",
-                        "city": "101"
-                    },
-                    "post_code": "1000014"
+    "last_update_date": "2023-09-13",
+    "divide_number": "1",
+    "divide_size": "1",
+    "corporation": [
+        {
+            "corp_number": "1000011000005",
+            "process": "01",
+            "correct": "1",
+            "update_date": "2018-04-02",
+            "change_date": "2015-10-05",
+            "name": "国立国会図書館",
+            "name_ruby": "コクリツコッカイトショカン",
+            "kind": "101",
+            "address": {
+                "text": {
+                    "prefecture": "東京都",
+                    "city": "千代田区",
+                    "street_number": "永田町１丁目１０－１"
                 },
-                "assignment_date": "2015-10-05",
-                "latest": "1",
-                "en": {
-                    "name": "National Diet Library",
-                    "prefecture": "Tokyo",
-                    "city": "1-10-1,Nagatacho, Chiyoda ku"
+                "code": {
+                    "prefecture": "13",
+                    "city": "101"
                 },
-                "ignore": "0"
-            }
-        ]
-    }
+                "post_code": "1000014"
+            },
+            "assignment_date": "2015-10-05",
+            "latest": "1",
+            "en": {
+                "name": "National Diet Library",
+                "prefecture": "Tokyo",
+                "city": "1-10-1,Nagatacho, Chiyoda ku"
+            },
+            "ignore": "0"
+        }
+    ]
 }
