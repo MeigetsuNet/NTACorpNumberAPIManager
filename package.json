@@ -2,7 +2,7 @@
     "name": "ntacorpnumberapimanager",
     "version": "1.0.0",
     "description": "国税庁法人番号ＡＰＩリクエストマネージャー",
-    "main": "src/index.ts",
+    "main": "dist/index.js",
     "type": "module",
     "engines": {
         "node": ">=20.0.0"
