@@ -14,6 +14,48 @@ export default class CorpNumberManager {
             if (obj.elements == null) return undefined;
             return obj.elements[0].text;
         };
+        const GetAddress = element => {
+            const GetAddressText = () => {
+                const resObj = {
+                    prefecture: GetElementValue(GetElements('prefectureName', element)),
+                    city: GetElementValue(GetElements('cityName', element)),
+                    street_number: GetElementValue(GetElements('streetNumber', element)),
+                };
+                return Object.keys(resObj).filter(i => resObj[i] !== null) ? undefined : resObj;
+            };
+            const GetAddressCode = () => {
+                const resObj = {
+                    prefecture: GetElementValue(GetElements('prefectureCode', element)[0]),
+                    city: GetElementValue(GetElements('cityCode', element)[0]),
+                };
+                return Object.keys(resObj).filter(i => resObj[i] !== null) ? undefined : resObj;
+            };
+            const resObj = {
+                text: GetAddressText(),
+                code: GetAddressCode(),
+                post_code: GetElementValue(GetElements('postCode', element)[0]),
+                image_id: GetElementValue(GetElements('addressImageId', element)[0]),
+                outside: GetElementValue(GetElements('addressOutside', element)[0]),
+                outside_image_id: GetElementValue(GetElements('addressOutsideImageId', element)[0]),
+            };
+            return Object.keys(resObj).filter(i => resObj[i] !== null) ? undefined : resObj;
+        };
+        const GetCloseInfo = element => {
+            const resObj = {
+                date: GetElementValue(GetElements('closeDate', element)[0]),
+                cause: GetElementValue(GetElements('closeCause', element)[0]),
+            };
+            return Object.keys(resObj).filter(i => resObj[i] !== null) ? undefined : resObj;
+        };
+        const GetEnglishInfo = element => {
+            const resObj = {
+                name: GetElementValue(GetElements('enName', element)[0]),
+                prefecture: GetElementValue(GetElements('enPrefectureName', element)[0]),
+                city: GetElementValue(GetElements('enCityName', element)[0]),
+                address_outside: GetElementValue(GetElements('enAddressOutside', element)[0]),
+            };
+            return Object.keys(resObj).filter(i => resObj[i] !== null) ? undefined : resObj;
+        };
         return {
             last_update_date: GetElementValue(GetElements('lastUpdateDate', MainObject)[0]),
             divide_number: GetElementValue(GetElements('divideNumber', MainObject)[0]),
@@ -30,35 +72,13 @@ export default class CorpNumberManager {
                     name_image_id: GetElementValue(GetElements('nameImageId', e)[0]),
                     name_ruby: GetElementValue(GetElements('furigana', e)[0]),
                     kind: GetElementValue(GetElements('kind', e)[0]),
-                    address: {
-                        text: {
-                            prefecture: GetElementValue(GetElements('prefectureName', e)[0]),
-                            city: GetElementValue(GetElements('cityName', e)[0]),
-                            street_number: GetElementValue(GetElements('streetNumber', e)[0]),
-                        },
-                        code: {
-                            prefecture: GetElementValue(GetElements('prefectureCode', e)[0]),
-                            city: GetElementValue(GetElements('cityCode', e)[0]),
-                        },
-                        post_code: GetElementValue(GetElements('postCode', e)[0]),
-                        image_id: GetElementValue(GetElements('addressImageId', e)[0]),
-                        outside: GetElementValue(GetElements('addressOutside', e)[0]),
-                        outside_image_id: GetElementValue(GetElements('addressOutsideImageId', e)[0]),
-                    },
-                    close: {
-                        date: GetElementValue(GetElements('closeDate', e)[0]),
-                        cause: GetElementValue(GetElements('closeCause', e)[0]),
-                    },
+                    address: GetAddress(e),
+                    close: GetCloseInfo(e),
                     successor_corporate_number: GetElementValue(GetElements('successorCorporateNumber', e)[0]),
                     change_cause: GetElementValue(GetElements('changeCause', e)[0]),
                     assignment_date: GetElementValue(GetElements('assignmentDate', e)[0]),
                     latest: GetElementValue(GetElements('latest', e)[0]),
-                    en: {
-                        name: GetElementValue(GetElements('enName', e)[0]),
-                        prefecture: GetElementValue(GetElements('enPrefectureName', e)[0]),
-                        city: GetElementValue(GetElements('enCityName', e)[0]),
-                        address_outside: GetElementValue(GetElements('enAddressOutside', e)[0]),
-                    },
+                    en: GetEnglishInfo(e),
                     ignore: GetElementValue(GetElements('hihyoji', e)[0]),
                 };
                 return JSON.parse(JSON.stringify(Data));
