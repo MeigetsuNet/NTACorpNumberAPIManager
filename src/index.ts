@@ -124,7 +124,7 @@ export default class CorpNumberManager {
         } while (BeforeKeyCount !== Object.keys(Res).length);
         return Res;
     }
-    private Request(requestType: string, parameters: string): Promise<CorpInfoResponse> {
+    private Request(requestType: string, parameters: string, convertCode: boolean): Promise<CorpInfoResponse> {
         let statusCode = 200;
         return fetch(`https://api.houjin-bangou.nta.go.jp/4/${requestType}?id=${this.ntaAppId}&type=12&${parameters}`)
             .then(response => {
@@ -132,17 +132,25 @@ export default class CorpNumberManager {
                 return response.text();
             })
             .then(txt => {
-                if (statusCode === 200) return CorpNumberManager.ConvertXmlToJson(txt);
-                else throw new Error(`${statusCode}.${txt}`);
+                if (statusCode === 200) {
+                    const jsonData = CorpNumberManager.ConvertXmlToJson(txt);
+                    return convertCode ? CorpNumberManager.ConvertCodeOnJson(jsonData) : jsonData;
+                } else throw new Error(`${statusCode}.${txt}`);
             });
     }
-    getCorpInfoFromNum(parameters: CorpInfoRequestParamsFromNum): Promise<CorpInfoResponse> {
+    getCorpInfoFromNum(
+        parameters: CorpInfoRequestParamsFromNum,
+        convertCode: boolean = true
+    ): Promise<CorpInfoResponse> {
         const parametersText: string = `number=${parameters.number}&history=${Number(
             parameters.contain_history ?? false
         )}`;
-        return this.Request('num', parametersText);
+        return this.Request('num', parametersText, convertCode);
     }
-    getCorpInfoFromDiff(parameters: CorpInfoRequestParamsFromDiff): Promise<CorpInfoResponse> {
+    getCorpInfoFromDiff(
+        parameters: CorpInfoRequestParamsFromDiff,
+        convertCode: boolean = true
+    ): Promise<CorpInfoResponse> {
         const formattedParams = {
             from: `${parameters.from.getFullYear()}-${parameters.from.getMonth() + 1}-${parameters.from.getDate()}`,
             to: `${parameters.to.getFullYear()}-${parameters.to.getMonth() + 1}-${parameters.to.getDate()}`,
@@ -151,9 +159,12 @@ export default class CorpNumberManager {
             divide: parameters.divide,
         };
         const params = new URLSearchParams(CorpNumberManager.RemoveNullKeys(formattedParams));
-        return this.Request('diff', params.toString());
+        return this.Request('diff', params.toString(), convertCode);
     }
-    getCorpInfoFromName(parameters: CorpInfoRequestParamsFromName): Promise<CorpInfoResponse> {
+    getCorpInfoFromName(
+        parameters: CorpInfoRequestParamsFromName,
+        convertCode: boolean = true
+    ): Promise<CorpInfoResponse> {
         const formattedParams = {
             name: parameters.name,
             mode: parameters.match_type,
@@ -167,6 +178,6 @@ export default class CorpNumberManager {
             divide: parameters.divide,
         };
         const params = new URLSearchParams(CorpNumberManager.RemoveNullKeys(formattedParams));
-        return this.Request('name', params.toString());
+        return this.Request('name', params.toString(), convertCode);
     }
 }
