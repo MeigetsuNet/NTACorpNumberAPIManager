@@ -1,5 +1,11 @@
 {
-    "extends": ["eslint:recommended", "plugin:node/recommended", "prettier", "plugin:mocha/recommended", "plugin:@typescript-eslint/recommended"],
+    "extends": [
+        "eslint:recommended",
+        "plugin:node/recommended",
+        "prettier",
+        "plugin:mocha/recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
     "plugins": ["@typescript-eslint"],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
