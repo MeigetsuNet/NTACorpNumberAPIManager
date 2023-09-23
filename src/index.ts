@@ -46,7 +46,6 @@ export default class CorpNumberManager {
                 date: GetElementValue(GetElements('closeDate', element)[0]),
                 cause: GetElementValue(GetElements('closeCause', element)[0]),
             };
-            console.log(Object.keys(resObj).filter(i => resObj[i] !== null).length);
             return IsEmptyObject(resObj) ? undefined : resObj;
         };
         const GetEnglishInfo = element => {
