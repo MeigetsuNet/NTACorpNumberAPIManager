@@ -1,5 +1,5 @@
 {
-    "extends": ["eslint:recommended", "plugin:node/recommended", "prettier", "plugin:mocha/recommended"],
+    "extends": ["eslint:recommended", "plugin:node/recommended", "prettier", "plugin:mocha/recommended", "plugin:@typescript-eslint/recommended"],
     "plugins": ["@typescript-eslint"],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -21,6 +21,8 @@
         "require-atomic-updates": "error",
         "no-var": "error",
         "prefer-const": "error",
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": ["error"],
         "node/no-missing-import": "off",
         "node/no-unpublished-import": "off",
         "mocha/no-skipped-tests": "error",
