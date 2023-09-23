@@ -4,6 +4,7 @@ import { CorpInfoRequestParamsFromDiff } from './CorpInfoRequestParams/FromDiff'
 import { CorpInfoRequestParamsFromName } from './CorpInfoRequestParams/FromName';
 import { CorpInfoResponse } from './CorpInfoResponse';
 import { CorpInformation } from './CorpInformation';
+import { convert } from './Converters';
 
 export default class CorpNumberManager {
     constructor(private readonly ntaAppId: string) {}
@@ -86,6 +87,21 @@ export default class CorpNumberManager {
                 return JSON.parse(JSON.stringify(Data)) as Partial<CorpInformation>;
             }),
         };
+    }
+    private static ConvertCodeOnJson(Data: CorpInfoResponse) {
+        const Corps = Data.corporations.map(i => {
+            const Res = i;
+            if (Res.process != null) Res.process = convert.process(Res.process);
+            if (Res.kind != null) Res.kind = convert.kind(Res.kind); 
+            if (Res.latest != null) Res.latest = convert.latest(Res.latest);
+            if (Res.correct != null) Res.correct = convert.correct(Res.correct);
+            if (Res.close != null && Res.close.cause != null) Res.close.cause = convert.close_cause(Res.close.cause);
+            if (Res.ignore != null) Res.ignore = convert.hide(Res.ignore);
+            return Res;
+        });
+        const Res = Data;
+        Data.corporations = Corps;
+        return Res;
     }
     private static RemoveNullKeys(parameters) {
         const Keys = Object.keys(parameters).filter(i => {
