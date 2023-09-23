@@ -3,6 +3,7 @@ import { CorpInfoRequestParamsFromNum } from './CorpInfoRequestParams/FromNum';
 import { CorpInfoRequestParamsFromDiff } from './CorpInfoRequestParams/FromDiff';
 import { CorpInfoRequestParamsFromName } from './CorpInfoRequestParams/FromName';
 import { CorpInfoResponse } from './CorpInfoResponse';
+import { CorpInformation } from './CorpInformation';
 
 export default class CorpNumberManager {
     constructor(private readonly ntaAppId: string) {}
@@ -63,7 +64,7 @@ export default class CorpNumberManager {
             divide_size: GetElementValue(GetElements('divideSize', MainObject)[0]),
             corporations: GetElements('corporation', MainObject).map(item => {
                 const e = item.elements;
-                const Data = {
+                const Data: Partial<CorpInformation> = {
                     corp_number: GetElementValue(GetElements('corporateNumber', e)[0]),
                     process: GetElementValue(GetElements('process', e)[0]),
                     correct: GetElementValue(GetElements('correct', e)[0]),
@@ -82,7 +83,7 @@ export default class CorpNumberManager {
                     en: GetEnglishInfo(e),
                     ignore: GetElementValue(GetElements('hihyoji', e)[0]),
                 };
-                return JSON.parse(JSON.stringify(Data));
+                return JSON.parse(JSON.stringify(Data)) as Partial<CorpInformation>;
             }),
         };
     }
