@@ -92,7 +92,7 @@ export default class CorpNumberManager {
         const Corps = Data.corporations.map(i => {
             const Res = i;
             if (Res.process != null) Res.process = convert.process(Res.process);
-            if (Res.kind != null) Res.kind = convert.kind(Res.kind); 
+            if (Res.kind != null) Res.kind = convert.kind(Res.kind);
             if (Res.latest != null) Res.latest = convert.latest(Res.latest);
             if (Res.correct != null) Res.correct = convert.correct(Res.correct);
             if (Res.close != null && Res.close.cause != null) Res.close.cause = convert.close_cause(Res.close.cause);
