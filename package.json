@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "description": "国税庁法人番号ＡＰＩリクエストマネージャー",
     "main": "dist/index.js",
+    "types": "dist/src/index.d.ts",
     "type": "module",
     "engines": {
         "node": ">=20.0.0"
@@ -12,7 +13,9 @@
         "eslint:fix": "eslint --cache --ext .ts . --fix",
         "prettier": "prettier --write --end-of-line crlf .",
         "test": "ts-mocha -p ./tsconfig.json ./tests/*.ts",
-        "build": "esbuild ./src/index.ts --bundle --platform=node --minify --sourcemap --target=node20 --outfile=./dist/index.js"
+        "build": "run-p build:*",
+        "build:esm": "esbuild ./src/index.ts --bundle --platform=node --minify --sourcemap --target=node20 --outfile=./dist/index.js",
+        "build:type": "tsc --declaration --emitDeclarationOnly --declarationDir ./dist"
     },
     "author": "Meigetsu/Meigetsu Net",
     "license": "UNLICENSED",
@@ -29,6 +32,7 @@
         "eslint-config-prettier": "^9.0.0",
         "eslint-plugin-mocha": "^10.1.0",
         "eslint-plugin-node": "^11.1.0",
+        "npm-run-all": "^4.1.5",
         "prettier": "^3.0.3",
         "ts-mocha": "^10.0.0",
         "typescript": "^5.2.2"
