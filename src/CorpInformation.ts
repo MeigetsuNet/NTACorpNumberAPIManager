@@ -8,34 +8,34 @@ export interface CorpInformation {
     name_image_id: string;
     name_ruby: string;
     kind: string;
-    address: {
-        text: {
+    address: Partial<{
+        text: Partial<{
             prefecture: string;
             city: string;
             street_number: string;
-        };
-        code: {
+        }>;
+        code: Partial<{
             prefecture: string;
             city: string;
-        };
+        }>;
         post_code: string;
         image_id: string;
         outside: string;
         outside_image_id: string;
-    };
-    close: {
+    }>;
+    close: Partial<{
         date: string;
         cause: string;
-    };
+    }>;
     successor_corporate_number: string;
     change_cause: string;
     assignment_date: string;
     latest: string;
-    en: {
+    en: Partial<{
         name: string;
         prefecture: string;
         city: string;
         address_outside: string;
-    };
+    }>;
     ignore: string;
 }
