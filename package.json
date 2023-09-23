@@ -3,7 +3,13 @@
     "version": "1.0.0",
     "description": "国税庁法人番号ＡＰＩリクエストマネージャー",
     "main": "src/index.ts",
+    "type": "module",
+    "engines": {
+        "node": ">=20.0.0"
+    },
     "scripts": {
+        "eslint": "eslint --cache --ext .js,.ts .",
+        "eslint:fix": "eslint --cache --ext .js,.ts . --fix",
         "prettier": "prettier --write --end-of-line crlf .",
         "test": "ts-mocha -p ./tsconfig.json ./tests/*.ts"
     },
@@ -14,7 +20,13 @@
         "@types/mocha": "^10.0.1",
         "@types/node": "^20.6.0",
         "@types/xml-js": "^1.0.0",
+        "@typescript-eslint/eslint-plugin": "^6.7.2",
+        "@typescript-eslint/parser": "^6.7.2",
         "assert": "^2.1.0",
+        "eslint": "^8.50.0",
+        "eslint-config-prettier": "^9.0.0",
+        "eslint-plugin-mocha": "^10.1.0",
+        "eslint-plugin-node": "^11.1.0",
         "prettier": "^3.0.3",
         "ts-mocha": "^10.0.0",
         "typescript": "^5.2.2"
