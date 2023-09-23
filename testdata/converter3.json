@@ -1,0 +1,37 @@
+{
+    "last_update_date": "2023-09-13",
+    "divide_number": "1",
+    "divide_size": "1",
+    "corporations": [
+        {
+            "corp_number": "1000011000005",
+            "process": "新規",
+            "correct": "訂正",
+            "update_date": "2018-04-02",
+            "change_date": "2015-10-05",
+            "name": "国立国会図書館",
+            "name_ruby": "コクリツコッカイトショカン",
+            "kind": "国の機関",
+            "address": {
+                "text": {
+                    "prefecture": "東京都",
+                    "city": "千代田区",
+                    "street_number": "永田町１丁目１０－１"
+                },
+                "code": {
+                    "prefecture": "13",
+                    "city": "101"
+                },
+                "post_code": "1000014"
+            },
+            "assignment_date": "2015-10-05",
+            "latest": "最新情報",
+            "en": {
+                "name": "National Diet Library",
+                "prefecture": "Tokyo",
+                "city": "1-10-1,Nagatacho, Chiyoda ku"
+            },
+            "ignore": "検索対象"
+        }
+    ]
+}
