@@ -7,6 +7,7 @@ import { CorpInformation } from './CorpInformation';
 import { convert } from './Converters';
 
 export default class CorpNumberManager {
+    static DateReserveAllowStartDate: Date = new Date(2015, 9, 15);
     constructor(private readonly ntaAppId: string) {}
     private static ConvertXmlToJson(xmlText: string): CorpInfoResponse {
         const json = JSON.parse(xml2json(xmlText));
@@ -147,6 +148,14 @@ export default class CorpNumberManager {
         )}`;
         return this.Request('num', parametersText, convertCode);
     }
+    private static CheckDiff(from: Date, to: Date) {
+        const diffTime = to.getTime() - from.getTime();
+        if (diffTime < 0) throw new Error('toにfromより前の日付を指定することはできません');
+        if (Math.floor(diffTime / (1000 * 60 * 60 * 24)) > 50)
+            throw new Error('50日を超えた期間を指定することはできません');
+        if (CorpNumberManager.DateReserveAllowStartDate > from)
+            throw new Error('2015年10月5日以前の日付は指定できません');
+    }
     getCorpInfoFromDiff(
         parameters: CorpInfoRequestParamsFromDiff,
         convertCode: boolean = true
@@ -159,6 +168,7 @@ export default class CorpNumberManager {
             kind: parameters.corp_type,
             divide: parameters.divide,
         };
+        CorpNumberManager.CheckDiff(parameters.from, parameters.to);
         const params = new URLSearchParams(CorpNumberManager.RemoveNullKeys(formattedParams));
         return this.Request('diff', params.toString(), convertCode);
     }
@@ -166,6 +176,11 @@ export default class CorpNumberManager {
         parameters: CorpInfoRequestParamsFromName,
         convertCode: boolean = true
     ): Promise<CorpInfoResponse> {
+        if (parameters.corp_number_reserve != null) {
+            if (parameters.corp_number_reserve.from == null || parameters.corp_number_reserve.to == null)
+                throw new Error('法人番号の指定日は開始日と終了日の両方を入力する必要があります');
+            CorpNumberManager.CheckDiff(parameters.corp_number_reserve.from, parameters.corp_number_reserve.to);
+        }
         const GetDateText = (date: Date) => `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
         const formattedParams = {
             name: parameters.name,
