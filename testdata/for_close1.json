@@ -1,0 +1,13 @@
+{
+    "last_update_date": "2023-09-13",
+    "divide_number": "1",
+    "divide_size": "1",
+    "corporations": [
+        {
+            "close": {
+                "date": "2021-09-10",
+                "cause": "01"
+            }
+        }
+    ]
+}

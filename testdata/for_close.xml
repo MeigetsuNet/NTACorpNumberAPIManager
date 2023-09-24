@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<corporations>
+    <lastUpdateDate>2023-09-13</lastUpdateDate>
+    <count>1</count>
+    <divideNumber>1</divideNumber>
+    <divideSize>1</divideSize>
+    <corporation>
+        <sequenceNumber/>
+        <corporateNumber/>
+        <process/>
+        <correct/>
+        <updateDate/>
+        <changeDate/>
+        <name/>
+        <nameImageId/>
+        <kind/>
+        <prefectureName/>
+        <cityName/>
+        <streetNumber/>
+        <addressImageId/>
+        <prefectureCode/>
+        <cityCode/>
+        <postCode/>
+        <addressOutside/>
+        <addressOutsideImageId/>
+        <closeDate>2021-09-10</closeDate>
+        <closeCause>01</closeCause>
+        <successorCorporateNumber/>
+        <changeCause/>
+        <assignmentDate/>
+        <latest/>
+        <enName/>
+        <enPrefectureName/>
+        <enCityName/>
+        <enAddressOutside/>
+        <furigana/>
+        <hihyoji/>
+    </corporation>
+</corporations>
