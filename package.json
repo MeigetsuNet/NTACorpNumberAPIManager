@@ -12,6 +12,7 @@
         "eslint": "eslint --cache --ext .ts .",
         "eslint:fix": "eslint --cache --ext .ts . --fix",
         "prettier": "prettier --write --end-of-line crlf .",
+        "test": "ts-mocha -p ./tsconfig.json ./tests/**/*.ts",
         "ci": "run-p eslint test",
         "coverage": "c8 npm test",
         "build": "run-p build:*",
