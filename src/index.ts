@@ -151,9 +151,10 @@ export default class CorpNumberManager {
         parameters: CorpInfoRequestParamsFromDiff,
         convertCode: boolean = true
     ): Promise<CorpInfoResponse> {
+        const GetDateText = (date: Date) => `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
         const formattedParams = {
-            from: `${parameters.from.getFullYear()}-${parameters.from.getMonth() + 1}-${parameters.from.getDate()}`,
-            to: `${parameters.to.getFullYear()}-${parameters.to.getMonth() + 1}-${parameters.to.getDate()}`,
+            from: GetDateText(parameters.from),
+            to: GetDateText(parameters.to),
             address: parameters.address_code,
             kind: parameters.corp_type,
             divide: parameters.divide,
