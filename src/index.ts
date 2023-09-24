@@ -175,8 +175,14 @@ export default class CorpNumberManager {
             kind: parameters.corp_type,
             change: Number(parameters.contain_change ?? false),
             close: Number(parameters.contain_close ?? true),
-            from: parameters.corp_number_reserve == null || parameters.corp_number_reserve.from == null ? undefined : GetDateText(parameters.corp_number_reserve.from),
-            to: parameters.corp_number_reserve == null || parameters.corp_number_reserve.to == null ? undefined : GetDateText(parameters.corp_number_reserve.to),
+            from:
+                parameters.corp_number_reserve == null || parameters.corp_number_reserve.from == null
+                    ? undefined
+                    : GetDateText(parameters.corp_number_reserve.from),
+            to:
+                parameters.corp_number_reserve == null || parameters.corp_number_reserve.to == null
+                    ? undefined
+                    : GetDateText(parameters.corp_number_reserve.to),
             divide: parameters.divide,
         };
         const params = new URLSearchParams(CorpNumberManager.RemoveNullKeys(formattedParams));
