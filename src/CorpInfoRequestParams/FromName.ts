@@ -11,8 +11,8 @@ export interface CorpInfoRequestParamsFromName {
     contain_change?: boolean;
     contain_close?: boolean;
     corp_number_reserve?: {
-        from?: Date;
-        to?: Date;
+        from: Date;
+        to: Date;
     };
     divide?: number;
 }

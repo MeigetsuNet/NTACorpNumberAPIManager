@@ -176,11 +176,8 @@ export default class CorpNumberManager {
         parameters: CorpInfoRequestParamsFromName,
         convertCode: boolean = true
     ): Promise<CorpInfoResponse> {
-        if (parameters.corp_number_reserve != null) {
-            if (parameters.corp_number_reserve.from == null || parameters.corp_number_reserve.to == null)
-                throw new Error('法人番号の指定日は開始日と終了日の両方を入力する必要があります');
+        if (parameters.corp_number_reserve != null)
             CorpNumberManager.CheckDiff(parameters.corp_number_reserve.from, parameters.corp_number_reserve.to);
-        }
         const GetDateText = (date: Date) => `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
         const formattedParams = {
             name: parameters.name,
