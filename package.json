@@ -12,7 +12,8 @@
         "eslint": "eslint --cache --ext .ts .",
         "eslint:fix": "eslint --cache --ext .ts . --fix",
         "prettier": "prettier --write --end-of-line crlf .",
-        "test": "ts-mocha -p ./tsconfig.json ./tests/*.ts",
+        "ci": "run-p eslint test",
+        "coverage": "c8 npm test",
         "build": "run-p build:*",
         "build:esm": "esbuild ./src/index.ts --bundle --platform=node --minify --sourcemap --target=node20 --outfile=./dist/index.js",
         "build:type": "tsc --declaration --emitDeclarationOnly --declarationDir ./dist"
@@ -27,6 +28,7 @@
         "@typescript-eslint/eslint-plugin": "^6.7.2",
         "@typescript-eslint/parser": "^6.7.2",
         "assert": "^2.1.0",
+        "c8": "^8.0.1",
         "esbuild": "^0.19.3",
         "eslint": "^8.50.0",
         "eslint-config-prettier": "^9.0.0",
