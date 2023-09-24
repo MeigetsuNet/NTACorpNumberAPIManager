@@ -1,3 +1,3 @@
 import Hides from '../../converts/hide.json';
 
-export const hide = (code: string): string => Hides[code];
+export const hide = (code: string): string | undefined => Hides[code];
