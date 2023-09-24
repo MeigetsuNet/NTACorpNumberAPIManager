@@ -85,8 +85,9 @@ export default class CorpNumberManager {
                     en: GetEnglishInfo(e),
                     ignore: GetElementValue(GetElements('hihyoji', e)[0]),
                 };
-                return JSON.parse(JSON.stringify(Data)) as Partial<CorpInformation>;
-            }),
+                const AfterRemoveUndefined = JSON.parse(JSON.stringify(Data)) as Partial<CorpInformation>;
+                return IsEmptyObject(AfterRemoveUndefined) ? undefined : AfterRemoveUndefined;
+            }).filter(i => i !== undefined),
         };
     }
     private static ConvertCodeOnJson(Data: CorpInfoResponse) {
