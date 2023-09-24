@@ -6,10 +6,28 @@ import { latest } from './latest';
 import { process as converProcess } from './process';
 
 export const convert = {
-    close_cause: closeCause,
-    correct: correct,
-    hide: hide,
-    kind: kind,
-    latest: latest,
-    process: converProcess,
+    close_cause: (code: string): string => {
+        const result = closeCause(code);
+        return result == null ? code: result;
+    },
+    correct: (code: string): string => {
+        const result = correct(code);
+        return result == null ? code: result;
+    },
+    hide: (code: string): string => {
+        const result = hide(code);
+        return result == null ? code: result;
+    },
+    kind: (code: string): string => {
+        const result = kind(code);
+        return result == null ? code: result;
+    },
+    latest: (code: string): string => {
+        const result = latest(code);
+        return result == null ? code: result;
+    },
+    process: (code: string): string => {
+        const result = converProcess(code);
+        return result == null ? code: result;
+    },
 };
