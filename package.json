@@ -20,7 +20,7 @@
         "build:type": "tsc --declaration --emitDeclarationOnly --declarationDir ./dist"
     },
     "author": "Meigetsu/Meigetsu Net",
-    "license": "UNLICENSED",
+    "license": "SEE LICENSE IN https://license.meigetsu.jp/?id=0794FD140AD3450BB4A5A44459335089",
     "devDependencies": {
         "@types/assert": "^1.5.6",
         "@types/mocha": "^10.0.1",
