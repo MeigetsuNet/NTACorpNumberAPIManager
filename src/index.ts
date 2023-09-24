@@ -165,6 +165,7 @@ export default class CorpNumberManager {
         parameters: CorpInfoRequestParamsFromName,
         convertCode: boolean = true
     ): Promise<CorpInfoResponse> {
+        const GetDateText = (date: Date) => `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
         const formattedParams = {
             name: parameters.name,
             mode: parameters.match_type,
@@ -173,8 +174,8 @@ export default class CorpNumberManager {
             kind: parameters.corp_type,
             change: Number(parameters.contain_change ?? false),
             close: Number(parameters.contain_close ?? true),
-            from: parameters.corp_number_reserve == null ? undefined : parameters.corp_number_reserve.from,
-            to: parameters.corp_number_reserve == null ? undefined : parameters.corp_number_reserve.to,
+            from: parameters.corp_number_reserve == null || parameters.corp_number_reserve.from == null ? undefined : GetDateText(parameters.corp_number_reserve.from),
+            to: parameters.corp_number_reserve == null || parameters.corp_number_reserve.to == null ? undefined : GetDateText(parameters.corp_number_reserve.to),
             divide: parameters.divide,
         };
         const params = new URLSearchParams(CorpNumberManager.RemoveNullKeys(formattedParams));
