@@ -11,17 +11,15 @@
 [![Coverage Status](https://coveralls.io/repos/github/MeigetsuNet/NTACorpNumberAPIManager/badge.svg?branch=master)](https://coveralls.io/github/MeigetsuNet/NTACorpNumberAPIManager?branch=master)
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/MeigetsuNet/NTACorpNumberAPIManager/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/MeigetsuNet/NTACorpNumberAPIManager/tree/master)
 
-## 使用方法
-
-### インストール
+## インストール
 
 ```terminal
 npm install ntacorpnumberapimanager
 ```
 
-### ソースコード例
+## ソースコード例
 
-#### 初期化
+### 初期化
 
 ```javascript
 import CorpNumberManager from 'ntacorpnumberapimanager';
@@ -30,9 +28,9 @@ const APP_ID = 'XXXXXX';
 const const CorpNum = new CorpNumberManager(APP_ID);
 ```
 
-#### 【例１】：法人番号から検索する
+### 【例１】：法人番号から検索する
 
-##### コード
+#### コード
 
 ```javascript
 const info = await CorpNum.getCorpInfoFromNum({ number: '1000011000005', contain_history: false });
@@ -41,7 +39,7 @@ console.log(info);
 
 ※contain_historyは省略できます
 
-##### 出力
+#### 出力
 
 ```json
 {
@@ -85,7 +83,7 @@ console.log(info);
 
 ※```getCorpInfoFromNum```の第２引数にfalseを与えると、一部の値をコードで取得できます。コードの意味についてはWeb APIの仕様書を確認して下さい。
 
-#### 【例２】取得期間を指定して検索する
+### 【例２】取得期間を指定して検索する
 
 ```javascript
 const From = new Date(2020, 0, 1); // 2020年1月1日
@@ -98,7 +96,7 @@ console.log(info);
 
 ※```getCorpInfoFromDiff```の第２引数にfalseを与えると、一部の値をコードで取得できます。コードの意味についてはWeb APIの仕様書を確認して下さい。
 
-##### その他指定可能なパラメーター
+#### その他指定可能なパラメーター
 
 |パラメーター|説明|型|初期値|
 |----|----|----|----|
@@ -106,7 +104,7 @@ console.log(info);
 |corp_type|検索対象とする法人の種類|enum型```CorpSearchType```|なし（全ての法人等を検索します）|
 |divide|分割番号|number|1|
 
-##### パラメーター```divide```について
+#### パラメーター```divide```について
 
 国税庁法人番号Web API仕様書より
 
@@ -120,7 +118,7 @@ Web-APIの取得期間や法人名を指定して情報を取得する場合の�
 ト条件の分割番号をカウントアップしてリクエストを送信することにより、条件に
 合致する情報を全て取得することができる。
 
-#### 【例３】法人名を指定して検索する
+### 【例３】法人名を指定して検索する
 
 ```javascript
 const From = new Date(2020, 0, 1); // 2020年1月1日
@@ -148,7 +146,7 @@ divideについての説明は[【例２】取得期間を指定して検索す�
 
 ## enum型の説明
 
-### CorpSearchMode
+## CorpSearchMode
 
 法人名検索の際の検索方法を指定する値です。
 
@@ -157,7 +155,7 @@ divideについての説明は[【例２】取得期間を指定して検索す�
 |Match_Front|前方一致検索。法人名の前方がキーワードと一致するものを探します。|
 |Match_Part|部分一致検索。法人名の一部がキーワードと一致するものを探します。|
 
-### CorpSearchTarget
+## CorpSearchTarget
 
 法人名検索における検索対象および方法を指定します
 
@@ -167,7 +165,7 @@ divideについての説明は[【例２】取得期間を指定して検索す�
 |JIS1_4|「商号又は名称」の文字が JIS 第一～第四水準のデータベースを指定した文字そのままで検索|
 |English|英語表記が登録された法人の英語表記を検索|
 
-### CorpSearchType
+## CorpSearchType
 
 検索対象となる法人の種類を選択します
 
@@ -177,6 +175,7 @@ divideについての説明は[【例２】取得期間を指定して検索す�
 |LocalGovernment|地方公共団体|
 |RegisteredCorpEstablishedInJP|国内設立法人|
 |Others|外国会社等・その他|
+
 ## テストコードについて
 
 変換部に関しては念入りにテストを行っていますが、リクエスト部分につきましてはテストサーバーが無く、本番環境のサーバーにリクエストするしか無いため、国税庁の法人番号システムWeb APIに攻撃まがいのことをすることになってしまう関係で書いておりません。
