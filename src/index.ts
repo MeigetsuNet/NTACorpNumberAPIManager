@@ -64,30 +64,32 @@ export default class CorpNumberManager {
             last_update_date: GetElementValue(GetElements('lastUpdateDate', MainObject)[0]),
             divide_number: GetElementValue(GetElements('divideNumber', MainObject)[0]),
             divide_size: GetElementValue(GetElements('divideSize', MainObject)[0]),
-            corporations: GetElements('corporation', MainObject).map(item => {
-                const e = item.elements;
-                const Data: Partial<CorpInformation> = {
-                    corp_number: GetElementValue(GetElements('corporateNumber', e)[0]),
-                    process: GetElementValue(GetElements('process', e)[0]),
-                    correct: GetElementValue(GetElements('correct', e)[0]),
-                    update_date: GetElementValue(GetElements('updateDate', e)[0]),
-                    change_date: GetElementValue(GetElements('changeDate', e)[0]),
-                    name: GetElementValue(GetElements('name', e)[0]),
-                    name_image_id: GetElementValue(GetElements('nameImageId', e)[0]),
-                    name_ruby: GetElementValue(GetElements('furigana', e)[0]),
-                    kind: GetElementValue(GetElements('kind', e)[0]),
-                    address: GetAddress(e),
-                    close: GetCloseInfo(e),
-                    successor_corporate_number: GetElementValue(GetElements('successorCorporateNumber', e)[0]),
-                    change_cause: GetElementValue(GetElements('changeCause', e)[0]),
-                    assignment_date: GetElementValue(GetElements('assignmentDate', e)[0]),
-                    latest: GetElementValue(GetElements('latest', e)[0]),
-                    en: GetEnglishInfo(e),
-                    ignore: GetElementValue(GetElements('hihyoji', e)[0]),
-                };
-                const AfterRemoveUndefined = JSON.parse(JSON.stringify(Data)) as Partial<CorpInformation>;
-                return IsEmptyObject(AfterRemoveUndefined) ? undefined : AfterRemoveUndefined;
-            }).filter(i => i !== undefined),
+            corporations: GetElements('corporation', MainObject)
+                .map(item => {
+                    const e = item.elements;
+                    const Data: Partial<CorpInformation> = {
+                        corp_number: GetElementValue(GetElements('corporateNumber', e)[0]),
+                        process: GetElementValue(GetElements('process', e)[0]),
+                        correct: GetElementValue(GetElements('correct', e)[0]),
+                        update_date: GetElementValue(GetElements('updateDate', e)[0]),
+                        change_date: GetElementValue(GetElements('changeDate', e)[0]),
+                        name: GetElementValue(GetElements('name', e)[0]),
+                        name_image_id: GetElementValue(GetElements('nameImageId', e)[0]),
+                        name_ruby: GetElementValue(GetElements('furigana', e)[0]),
+                        kind: GetElementValue(GetElements('kind', e)[0]),
+                        address: GetAddress(e),
+                        close: GetCloseInfo(e),
+                        successor_corporate_number: GetElementValue(GetElements('successorCorporateNumber', e)[0]),
+                        change_cause: GetElementValue(GetElements('changeCause', e)[0]),
+                        assignment_date: GetElementValue(GetElements('assignmentDate', e)[0]),
+                        latest: GetElementValue(GetElements('latest', e)[0]),
+                        en: GetEnglishInfo(e),
+                        ignore: GetElementValue(GetElements('hihyoji', e)[0]),
+                    };
+                    const AfterRemoveUndefined = JSON.parse(JSON.stringify(Data)) as Partial<CorpInformation>;
+                    return IsEmptyObject(AfterRemoveUndefined) ? undefined : AfterRemoveUndefined;
+                })
+                .filter(i => i !== undefined),
         };
     }
     private static ConvertCodeOnJson(Data: CorpInfoResponse) {

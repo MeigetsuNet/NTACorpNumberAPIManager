@@ -9,7 +9,7 @@ describe('Correct Converter Test', function () {
         assert.strictEqual(hide('1'), '検索対象除外');
         assert.strictEqual(hide('2'), undefined);
     });
-    it('wrapper', function() {
+    it('wrapper', function () {
         assert.strictEqual(convert.hide('1'), '検索対象除外');
         assert.strictEqual(convert.hide('2'), '2');
     });
