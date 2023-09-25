@@ -6,6 +6,10 @@
 
 [https://www.houjin-bangou.nta.go.jp/webapi/](https://www.houjin-bangou.nta.go.jp/webapi/)
 
+## ビルドステータス
+
+[![Coverage Status](https://coveralls.io/repos/github/MeigetsuNet/NTACorpNumberAPIManager/badge.svg?branch=master)](https://coveralls.io/github/MeigetsuNet/NTACorpNumberAPIManager?branch=master)
+
 ## 使用方法
 
 ### インストール
