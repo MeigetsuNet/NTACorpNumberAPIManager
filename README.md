@@ -9,6 +9,7 @@
 ## ビルドステータス
 
 [![Coverage Status](https://coveralls.io/repos/github/MeigetsuNet/NTACorpNumberAPIManager/badge.svg?branch=master)](https://coveralls.io/github/MeigetsuNet/NTACorpNumberAPIManager?branch=master)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/MeigetsuNet/NTACorpNumberAPIManager/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/MeigetsuNet/NTACorpNumberAPIManager/tree/master)
 
 ## 使用方法
 
