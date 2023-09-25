@@ -5,8 +5,7 @@ jobs:
       - image: cimg/node:20.7.0
     steps:
       - checkout
-      - run: npm install
-      - run: npm run ci
+      - run: npm test
 workflows:
   test:
     jobs:
