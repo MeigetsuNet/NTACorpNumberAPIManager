@@ -3,14 +3,15 @@
         "noImplicitAny": false,
         "noEmitOnError": true,
         "removeComments": false,
-        "sourceMap": true,
         "target": "es2022",
         "lib": ["ES2022", "DOM", "DOM.Iterable"],
         "strict": true,
-        "outDir": "build/",
+        "outDir": "dist/",
         "moduleResolution": "Node",
         "esModuleInterop": true,
-        "resolveJsonModule": true
+        "resolveJsonModule": true,
+        "declaration": true,
+        "sourceMap": true
     },
     "include": ["src/**/*"]
 }
