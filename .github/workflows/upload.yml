@@ -39,6 +39,7 @@ jobs:
       - name: Publish
         run: |
           npm ci
+          npm run build
           npm version ${{ steps.get_version.outputs.VERSION }}
           npm publish
         env:
