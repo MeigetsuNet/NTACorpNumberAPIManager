@@ -25,7 +25,7 @@ npm install ntacorpnumberapimanager
 import CorpNumberManager from 'ntacorpnumberapimanager';
 const APP_ID = 'XXXXXX';
 
-const const CorpNum = new CorpNumberManager(APP_ID);
+const CorpNum = new CorpNumberManager(APP_ID);
 ```
 
 ### 例１：法人番号から検索する
