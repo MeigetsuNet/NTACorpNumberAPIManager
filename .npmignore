@@ -141,3 +141,5 @@ src/*
 .github/
 converts/
 !dist/converts/
+tsconfig.build.json
+.circleci/

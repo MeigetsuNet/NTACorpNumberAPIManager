@@ -15,7 +15,7 @@
         "test": "ts-mocha -p ./tsconfig.json ./tests/**/*.ts",
         "ci": "run-p eslint coverage",
         "coverage": "c8 npm test",
-        "build": "tsc"
+        "build": "tsc --project tsconfig.build.json"
     },
     "author": "Meigetsu/Meigetsu Net",
     "license": "SEE LICENSE IN https://license.meigetsu.jp/?id=0794FD140AD3450BB4A5A44459335089",
