@@ -1,6 +1,6 @@
 {
     "name": "ntacorpnumberapimanager",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "国税庁法人番号ＡＰＩリクエストマネージャー",
     "main": "dist/src/index.js",
     "types": "dist/src/index.d.ts",
