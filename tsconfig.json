@@ -6,6 +6,7 @@
         "target": "es2022",
         "lib": ["ES2022", "DOM", "DOM.Iterable"],
         "strict": true,
+        "module": "ESNext",
         "moduleResolution": "Node",
         "esModuleInterop": true,
         "resolveJsonModule": true,
