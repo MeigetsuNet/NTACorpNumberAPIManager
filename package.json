@@ -1,6 +1,6 @@
 {
     "name": "ntacorpnumberapimanager",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "国税庁法人番号ＡＰＩリクエストマネージャー",
     "main": "dist/src/index.js",
     "types": "dist/src/index.d.ts",
@@ -16,6 +16,9 @@
         "ci": "run-p eslint coverage",
         "coverage": "c8 npm test",
         "build": "tsc --project tsconfig.build.json"
+    },
+    "repository": {
+        "url": "https://github.com/MeigetsuNet/NTACorpNumberAPIManager.git"
     },
     "author": "Meigetsu/Meigetsu Net",
     "license": "SEE LICENSE IN https://license.meigetsu.jp/?id=0794FD140AD3450BB4A5A44459335089",
