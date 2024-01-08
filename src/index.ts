@@ -1,10 +1,10 @@
 import { xml2json } from 'xml-js';
-import { CorpInfoRequestParamsFromNum } from './CorpInfoRequestParams/FromNum';
-import { CorpInfoRequestParamsFromDiff } from './CorpInfoRequestParams/FromDiff';
-import { CorpInfoRequestParamsFromName } from './CorpInfoRequestParams/FromName';
-import { CorpInfoResponse } from './CorpInfoResponse';
-import { CorpInformation } from './CorpInformation';
-import { convert } from './Converters';
+import { CorpInfoRequestParamsFromNum } from './CorpInfoRequestParams/FromNum.js';
+import { CorpInfoRequestParamsFromDiff } from './CorpInfoRequestParams/FromDiff.js';
+import { CorpInfoRequestParamsFromName } from './CorpInfoRequestParams/FromName.js';
+import { CorpInfoResponse } from './CorpInfoResponse.js';
+import { CorpInformation } from './CorpInformation.js';
+import { convert } from './Converters/index.js';
 
 export default class CorpNumberManager {
     static DateReserveAllowStartDate: Date = new Date(2015, 9, 15);

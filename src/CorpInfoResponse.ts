@@ -1,4 +1,4 @@
-import { CorpInformation } from './CorpInformation';
+import { CorpInformation } from './CorpInformation.js';
 
 export interface CorpInfoResponse {
     last_update_date: string;
