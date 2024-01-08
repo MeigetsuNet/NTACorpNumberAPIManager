@@ -1,8 +1,8 @@
 // eslint-disable-next-line node/no-extraneous-import
 import { describe, it } from 'mocha';
 import assert from 'assert';
-import { kind } from '../../src/Converters/kind';
-import { convert } from '../../src/Converters/';
+import { kind } from '../../dist/src/Converters/kind.js';
+import { convert } from '../../dist/src/Converters/index.js';
 
 describe('Kind Converter Test', function () {
     it('main', function () {

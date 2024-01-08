@@ -1,8 +1,8 @@
 // eslint-disable-next-line node/no-extraneous-import
 import { describe, it } from 'mocha';
 import assert from 'assert';
-import { closeCause } from '../../src/Converters/closeCause';
-import { convert } from '../../src/Converters/';
+import { closeCause } from '../../dist/src/Converters/closeCause.js';
+import { convert } from '../../dist/src/Converters/index.js';
 
 describe('Close Cause Converter Test', function () {
     it('main', function () {

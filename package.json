@@ -12,7 +12,8 @@
         "eslint": "eslint --cache --ext .ts .",
         "eslint:fix": "eslint --cache --ext .ts . --fix",
         "prettier": "prettier --write --end-of-line crlf .",
-        "test": "ts-mocha -p ./tsconfig.json ./tests/**/*.ts",
+        "test": "run-s build test:main",
+        "test:main": "mocha ./tests/**/*.js",
         "ci": "run-p eslint coverage",
         "coverage": "c8 npm test",
         "build": "tsc --project tsconfig.build.json"
@@ -35,9 +36,9 @@
         "eslint-config-prettier": "^9.0.0",
         "eslint-plugin-mocha": "^10.1.0",
         "eslint-plugin-node": "^11.1.0",
+        "mocha": "^10.2.0",
         "npm-run-all": "^4.1.5",
         "prettier": "^3.0.3",
-        "ts-mocha": "^10.0.0",
         "typescript": "^5.2.2"
     },
     "dependencies": {

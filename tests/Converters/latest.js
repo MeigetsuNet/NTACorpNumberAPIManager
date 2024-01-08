@@ -1,8 +1,8 @@
 // eslint-disable-next-line node/no-extraneous-import
 import { describe, it } from 'mocha';
 import assert from 'assert';
-import { latest } from '../../src/Converters/latest';
-import { convert } from '../../src/Converters/';
+import { latest } from '../../dist/src/Converters/latest.js';
+import { convert } from '../../dist/src/Converters/index.js';
 
 describe('Latest Converter Test', function () {
     it('main', function () {
