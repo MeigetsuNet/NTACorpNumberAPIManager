@@ -1,9 +1,9 @@
-import { closeCause } from './closeCause';
-import { correct } from './correct';
-import { hide } from './hide';
-import { kind } from './kind';
-import { latest } from './latest';
-import { process as converProcess } from './process';
+import { closeCause } from './closeCause.js';
+import { correct } from './correct.js';
+import { hide } from './hide.js';
+import { kind } from './kind.js';
+import { latest } from './latest.js';
+import { process as converProcess } from './process.js';
 
 export const convert = {
     close_cause: (code: string): string => {
