@@ -12,3 +12,6 @@ updates:
     labels:
       - 'automerge'
       - 'dependencies'
+    ignore:
+      - dependency-name: 'eslint'
+        versions: ['*']
