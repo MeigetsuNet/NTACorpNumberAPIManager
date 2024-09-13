@@ -9,6 +9,7 @@ describe('Close Cause Converter Test', function () {
         assert.strictEqual(closeCause('01'), '清算の結了等');
         assert.strictEqual(closeCause('02'), undefined);
     });
+
     it('wrapper', function () {
         assert.strictEqual(convert.close_cause('01'), '清算の結了等');
         assert.strictEqual(convert.close_cause('02'), '02');

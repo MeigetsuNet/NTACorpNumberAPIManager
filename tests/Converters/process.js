@@ -9,6 +9,7 @@ describe('Process Converter Test', function () {
         assert.strictEqual(process('01'), '新規');
         assert.strictEqual(process('02'), undefined);
     });
+
     it('wrapper', function () {
         assert.strictEqual(convert.process('01'), '新規');
         assert.strictEqual(convert.process('02'), '02');

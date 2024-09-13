@@ -11,12 +11,14 @@ describe('CorpNumberManager test', function () {
         const ExecResult = CorpNumberManager['ConvertXmlToJson'](xml);
         assert.deepStrictEqual(ExecResult, JSON.parse(json));
     });
+
     it('Converter test 2', function () {
         const xml = readFileSync('./testdata/converter2.xml', 'utf-8');
         const json = readFileSync('./testdata/converter2.json', 'utf-8');
         const ExecResult = CorpNumberManager['ConvertXmlToJson'](xml);
         assert.deepStrictEqual(ExecResult, JSON.parse(json));
     });
+
     it('Converter test 3', function () {
         const xml = readFileSync('./testdata/converter1.xml', 'utf-8');
         const json = readFileSync('./testdata/converter3.json', 'utf-8');
@@ -24,6 +26,7 @@ describe('CorpNumberManager test', function () {
         const ExecResult = CorpNumberManager['ConvertCodeOnJson'](JsonConvertResult);
         assert.deepStrictEqual(ExecResult, JSON.parse(json));
     });
+
     it('Converter test 4', function () {
         const xml = readFileSync('./testdata/converter2.xml', 'utf-8');
         const json = readFileSync('./testdata/converter4.json', 'utf-8');
@@ -31,18 +34,21 @@ describe('CorpNumberManager test', function () {
         const ExecResult = CorpNumberManager['ConvertCodeOnJson'](JsonConvertResult);
         assert.deepStrictEqual(ExecResult, JSON.parse(json));
     });
+
     it('Empty test', function () {
         const xml = readFileSync('./testdata/empty.xml', 'utf-8');
         const json = readFileSync('./testdata/empty.json', 'utf-8');
         const ExecResult = CorpNumberManager['ConvertXmlToJson'](xml);
         assert.deepStrictEqual(ExecResult, JSON.parse(json));
     });
+
     it('Close information test 1', function () {
         const xml = readFileSync('./testdata/for_close.xml', 'utf-8');
         const json = readFileSync('./testdata/for_close1.json', 'utf-8');
         const ExecResult = CorpNumberManager['ConvertXmlToJson'](xml);
         assert.deepStrictEqual(ExecResult, JSON.parse(json));
     });
+
     it('Close information test 2', function () {
         const xml = readFileSync('./testdata/for_close.xml', 'utf-8');
         const json = readFileSync('./testdata/for_close2.json', 'utf-8');

@@ -9,6 +9,7 @@ describe('Correct Converter Test', function () {
         assert.strictEqual(correct('1'), '訂正');
         assert.strictEqual(correct('2'), undefined);
     });
+
     it('wrapper', function () {
         assert.strictEqual(convert.correct('1'), '訂正');
         assert.strictEqual(convert.correct('2'), '2');
