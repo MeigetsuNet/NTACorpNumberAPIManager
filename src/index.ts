@@ -211,6 +211,6 @@ export default class CorpNumberManager {
                 .map(i => parseInt(i))
                 .reverse()
                 .reduce((acc, cur, idx) => acc + cur * ((idx % 2) + 1)) % 9;
-        return `${CheckDigit}${registryNumber}`;
+        return `${9-CheckDigit}${registryNumber}`;
     }
 }
