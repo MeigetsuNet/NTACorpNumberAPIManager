@@ -203,7 +203,8 @@ export default class CorpNumberManager {
         const params = new URLSearchParams(CorpNumberManager.RemoveNullKeys(formattedParams));
         return this.Request('name', params.toString(), convertCode);
     }
-    public static ConvertRegistryNumberToCorpNumber(registryNumber: string): string {
+    public static ConvertRegistryNumberToCorpNumber(registryNumber: string): string | null {
+        if (!/^\d{12}$/.test(registryNumber)) return null;
         const CheckDigit =
             [...registryNumber]
                 .map(i => parseInt(i))
