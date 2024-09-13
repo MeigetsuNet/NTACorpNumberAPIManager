@@ -146,6 +146,7 @@ export default class CorpNumberManager {
         parameters: CorpInfoRequestParamsFromNum,
         convertCode: boolean = true
     ): Promise<CorpInfoResponse> {
+        if (!/^[1-9]\d{12}$/.test(parameters.number)) throw new Error('法人番号は半角数字13桁で指定して下さい。');
         const parametersText: string = `number=${parameters.number}&history=${Number(
             parameters.contain_history ?? false
         )}`;
