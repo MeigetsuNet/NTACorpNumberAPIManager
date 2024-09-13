@@ -1,4 +1,4 @@
-import { closeCause } from './closeCause.js'
+import { closeCause } from './closeCause.js';
 import { correct } from './correct.js';
 import { hide } from './hide.js';
 import { kind } from './kind.js';
