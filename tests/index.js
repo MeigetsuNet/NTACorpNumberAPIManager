@@ -56,4 +56,10 @@ describe('CorpNumberManager test', function () {
         const ExecResult = CorpNumberManager['ConvertCodeOnJson'](JsonConvertResult);
         assert.deepStrictEqual(ExecResult, JSON.parse(json));
     });
+
+    it('Corp Number Converter Test', function () {
+        assert.strictEqual(CorpNumberManager.ConvertRegistryNumberToCorpNumber('010404006753'), '4010404006753');
+        assert.strictEqual(CorpNumberManager.ConvertRegistryNumberToCorpNumber('0104040067531'), null);
+        assert.strictEqual(CorpNumberManager.ConvertRegistryNumberToCorpNumber('a01040400675'), null);
+    });
 });
