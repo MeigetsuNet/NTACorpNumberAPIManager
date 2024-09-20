@@ -1,8 +1,8 @@
 // eslint-disable-next-line node/no-extraneous-import
 import { describe, it } from 'mocha';
 import assert from 'assert';
-import { process } from '../../dist/src/Converters/process.js';
-import { convert } from '../../dist/src/Converters/index.js';
+import { process } from '../../dist/Converters/process.js';
+import { convert } from '../../dist/Converters/index.js';
 
 describe('Process Converter Test', function () {
     it('main', function () {

@@ -1,9 +1,15 @@
 {
     "name": "ntacorpnumberapimanager",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "description": "国税庁法人番号ＡＰＩリクエストマネージャー",
-    "main": "dist/src/index.js",
-    "types": "dist/src/index.d.ts",
+    "main": "dist/cjs/index.js",
+    "types": "dist/@types/index.d.ts",
+    "exports": {
+        ".": {
+        "import": "./dist/esm/index.js",
+        "require": "./dist/cjs/index.js"
+        }
+    },
     "type": "module",
     "engines": {
         "node": ">=20.0.0"
@@ -16,7 +22,15 @@
         "test:main": "mocha ./tests/**/*.js",
         "ci": "run-p eslint coverage",
         "coverage": "c8 npm test",
-        "build": "tsc --project tsconfig.build.json"
+        "build": "tsc",
+        "rm": "run-script-os",
+        "rm:win32": "rmdir /s /q dist",
+        "rm:default": "rm -rf dist/",
+        "postbuild": "node ./add-js-extension.js dist/",
+        "build:release": "run-p build:release:*",
+        "build:release:cjs": "tsc -p tsconfig.cjs.json",
+        "build:release:esm": "tsc -p tsconfig.esm.json",
+        "prepack": "run-s rm build:release"
     },
     "repository": {
         "url": "https://github.com/MeigetsuNet/NTACorpNumberAPIManager.git"
@@ -39,6 +53,7 @@
         "mocha": "^10.2.0",
         "npm-run-all": "^4.1.5",
         "prettier": "^3.0.3",
+        "run-script-os": "^1.1.6",
         "typescript": "^5.2.2"
     },
     "dependencies": {

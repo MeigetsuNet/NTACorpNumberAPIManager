@@ -141,5 +141,6 @@ src/*
 .github/
 converts/
 !dist/converts/
-tsconfig.build.json
+tsconfig*.json
 .circleci/
+add-js-extension.js

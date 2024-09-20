@@ -1,5 +1,5 @@
 import { readFileSync } from 'fs';
-import CorpNumberManager from '../dist/src/index.js';
+import CorpNumberManager from '../dist/index.js';
 // eslint-disable-next-line node/no-extraneous-import
 import { describe, it } from 'mocha';
 import assert from 'assert';
