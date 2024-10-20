@@ -16,6 +16,7 @@
         "karma.conf.js",
         "webpack-tests.config.js",
         "webpack.config.js",
-        "scripts/*.js"
+        "scripts/*.js",
+        "add-js-extension.js"
     ]
 }
