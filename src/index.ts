@@ -12,6 +12,7 @@ export default class CorpNumberManager {
     private static ConvertXmlToJson(xmlText: string): CorpInfoResponse {
         const json = JSON.parse(xml2json(xmlText));
         const MainObject = json.elements[0].elements;
+        const Exists = (key: string, Root) => Root.find(i => i.name === key) != null;
         const GetElements = (key: string, Root) => Root.filter(i => i.name === key);
         const GetElementValue = obj => {
             if (obj.elements == null) return undefined;
@@ -60,6 +61,12 @@ export default class CorpNumberManager {
             };
             return IsEmptyObject(resObj) ? undefined : resObj;
         };
+        if (!Exists('corporation', MainObject))
+            return {
+                last_update_date: GetElementValue(GetElements('lastUpdateDate', MainObject)[0]),
+                divide_number: GetElementValue(GetElements('divideNumber', MainObject)[0]),
+                divide_size: GetElementValue(GetElements('divideSize', MainObject)[0]),
+            };
         return {
             last_update_date: GetElementValue(GetElements('lastUpdateDate', MainObject)[0]),
             divide_number: GetElementValue(GetElements('divideNumber', MainObject)[0]),
@@ -93,6 +100,7 @@ export default class CorpNumberManager {
         };
     }
     private static ConvertCodeOnJson(Data: CorpInfoResponse) {
+        if (Data.corporations == null) return Data;
         const Corps = Data.corporations.map(i => {
             const Res = i;
             if (Res.process != null) Res.process = convert.process(Res.process);

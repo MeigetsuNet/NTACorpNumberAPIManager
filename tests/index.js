@@ -35,6 +35,14 @@ describe('CorpNumberManager test', function () {
         assert.deepStrictEqual(ExecResult, JSON.parse(json));
     });
 
+    it('Converter test 5', function () {
+        const xml = readFileSync('./testdata/converter5.xml', 'utf-8');
+        const json = readFileSync('./testdata/converter5.json', 'utf-8');
+        const JsonConvertResult = CorpNumberManager['ConvertXmlToJson'](xml);
+        const ExecResult = CorpNumberManager['ConvertCodeOnJson'](JsonConvertResult);
+        assert.deepStrictEqual(ExecResult, JSON.parse(json));
+    });
+
     it('Empty test', function () {
         const xml = readFileSync('./testdata/empty.xml', 'utf-8');
         const json = readFileSync('./testdata/empty.json', 'utf-8');
