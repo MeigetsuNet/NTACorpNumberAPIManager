@@ -143,4 +143,4 @@ converts/
 !dist/converts/
 tsconfig*.json
 .circleci/
-add-js-extension.js
+add-js-extension.*js
