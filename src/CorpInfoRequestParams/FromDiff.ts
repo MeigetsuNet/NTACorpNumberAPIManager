@@ -6,4 +6,4 @@ export type CorpInfoRequestParamsFromDiff = {
     address_code?: string;
     corp_type?: CorpSearchType;
     divide?: number;
-}
+};

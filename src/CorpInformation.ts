@@ -38,4 +38,4 @@ export type CorpInformation = {
         address_outside: string;
     }>;
     ignore: string;
-}
+};

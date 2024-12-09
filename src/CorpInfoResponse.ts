@@ -5,4 +5,4 @@ export type CorpInfoResponse = {
     divide_number: string;
     divide_size: string;
     corporations?: Partial<CorpInformation>[];
-}
+};
