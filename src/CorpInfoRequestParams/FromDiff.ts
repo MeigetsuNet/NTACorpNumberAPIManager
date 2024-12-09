@@ -1,6 +1,6 @@
 import { CorpSearchType } from '../CorpSearch/Type.js';
 
-export interface CorpInfoRequestParamsFromDiff {
+export type CorpInfoRequestParamsFromDiff = {
     from: Date;
     to: Date;
     address_code?: string;

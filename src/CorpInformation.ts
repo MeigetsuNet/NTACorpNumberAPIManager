@@ -1,4 +1,4 @@
-export interface CorpInformation {
+export type CorpInformation = {
     corp_number: string;
     process: string;
     correct: string;
