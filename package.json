@@ -20,7 +20,7 @@
         "rm": "run-script-os",
         "rm:win32": "rmdir /s /q dist",
         "rm:default": "rm -rf dist/",
-        "postbuild": "node ./add-js-extension.js dist/",
+        "postbuild": "node ./add-js-extension.mjs dist/",
         "build:release": "run-p build:release:*",
         "build:release:cjs": "tsc -p tsconfig.cjs.json",
         "build:release:esm": "tsc -p tsconfig.esm.json",
