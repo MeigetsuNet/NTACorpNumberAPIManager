@@ -1,4 +1,4 @@
-import { CorpInformation } from './CorpInformation.js';
+import { CorpInformation } from './CorpInformation';
 
 export type CorpInfoResponse = {
     last_update_date: string;

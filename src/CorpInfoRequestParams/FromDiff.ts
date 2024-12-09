@@ -1,4 +1,4 @@
-import { CorpSearchType } from '../CorpSearch/Type.js';
+import { CorpSearchType } from '../CorpSearch/Type';
 
 export type CorpInfoRequestParamsFromDiff = {
     from: Date;

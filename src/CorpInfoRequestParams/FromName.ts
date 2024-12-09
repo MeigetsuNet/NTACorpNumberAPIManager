@@ -1,6 +1,6 @@
-import { CorpSearchMode } from '../CorpSearch/Mode.js';
-import { CorpSearchTarget } from '../CorpSearch/Target.js';
-import { CorpSearchType } from '../CorpSearch/Type.js';
+import { CorpSearchMode } from '../CorpSearch/Mode';
+import { CorpSearchTarget } from '../CorpSearch/Target';
+import { CorpSearchType } from '../CorpSearch/Type';
 
 export type CorpInfoRequestParamsFromName = {
     name: string;

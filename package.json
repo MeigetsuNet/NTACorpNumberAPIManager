@@ -1,6 +1,6 @@
 {
     "name": "ntacorpnumberapimanager",
-    "version": "1.0.6",
+    "version": "1.0.6-patch01",
     "description": "国税庁法人番号ＡＰＩリクエストマネージャー",
     "main": "dist/cjs/index.js",
     "types": "dist/@types/index.d.ts",
@@ -30,6 +30,7 @@
         "build:release": "run-p build:release:*",
         "build:release:cjs": "tsc -p tsconfig.cjs.json",
         "build:release:esm": "tsc -p tsconfig.esm.json",
+        "postbuild:release": "node ./add-js-extension.mjs dist/esm/",
         "prepack": "run-s rm build:release"
     },
     "repository": {
