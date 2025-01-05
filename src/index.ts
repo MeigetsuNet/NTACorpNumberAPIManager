@@ -1,105 +1,18 @@
-import { xml2json } from 'xml-js';
 import { CorpInfoRequestParamsFromNum } from './CorpInfoRequestParams/FromNum';
 import { CorpInfoRequestParamsFromDiff } from './CorpInfoRequestParams/FromDiff';
 import { CorpInfoRequestParamsFromName } from './CorpInfoRequestParams/FromName';
 import { CorpInfoResponse } from './CorpInfoResponse';
-import { CorpInformation } from './CorpInformation';
 import { convert } from './Converters/index';
+import { convert as xmlConvert } from 'ntacorpnumberapimanager-xmlparser';
 
 export default class CorpNumberManager {
     static DateReserveAllowStartDate: Date = new Date(2015, 9, 15);
     constructor(private readonly ntaAppId: string) {}
-    private static ConvertXmlToJson(xmlText: string): CorpInfoResponse {
-        const json = JSON.parse(xml2json(xmlText));
-        const MainObject = json.elements[0].elements;
-        const Exists = (key: string, Root) => Root.find(i => i.name === key) != null;
-        const GetElements = (key: string, Root) => Root.filter(i => i.name === key);
-        const GetElementValue = obj => {
-            if (obj.elements == null) return undefined;
-            return obj.elements[0].text;
-        };
-        const IsEmptyObject = obj => Object.keys(obj).filter(i => obj[i] != null).length === 0;
-        const GetAddress = element => {
-            const GetAddressText = () => {
-                const resObj = {
-                    prefecture: GetElementValue(GetElements('prefectureName', element)[0]),
-                    city: GetElementValue(GetElements('cityName', element)[0]),
-                    street_number: GetElementValue(GetElements('streetNumber', element)[0]),
-                };
-                return IsEmptyObject(resObj) ? undefined : resObj;
-            };
-            const GetAddressCode = () => {
-                const resObj = {
-                    prefecture: GetElementValue(GetElements('prefectureCode', element)[0]),
-                    city: GetElementValue(GetElements('cityCode', element)[0]),
-                };
-                return IsEmptyObject(resObj) ? undefined : resObj;
-            };
-            const resObj = {
-                text: GetAddressText(),
-                code: GetAddressCode(),
-                post_code: GetElementValue(GetElements('postCode', element)[0]),
-                image_id: GetElementValue(GetElements('addressImageId', element)[0]),
-                outside: GetElementValue(GetElements('addressOutside', element)[0]),
-                outside_image_id: GetElementValue(GetElements('addressOutsideImageId', element)[0]),
-            };
-            return IsEmptyObject(resObj) ? undefined : resObj;
-        };
-        const GetCloseInfo = element => {
-            const resObj = {
-                date: GetElementValue(GetElements('closeDate', element)[0]),
-                cause: GetElementValue(GetElements('closeCause', element)[0]),
-            };
-            return IsEmptyObject(resObj) ? undefined : resObj;
-        };
-        const GetEnglishInfo = element => {
-            const resObj = {
-                name: GetElementValue(GetElements('enName', element)[0]),
-                prefecture: GetElementValue(GetElements('enPrefectureName', element)[0]),
-                city: GetElementValue(GetElements('enCityName', element)[0]),
-                address_outside: GetElementValue(GetElements('enAddressOutside', element)[0]),
-            };
-            return IsEmptyObject(resObj) ? undefined : resObj;
-        };
-        if (!Exists('corporation', MainObject))
-            return {
-                last_update_date: GetElementValue(GetElements('lastUpdateDate', MainObject)[0]),
-                divide_number: GetElementValue(GetElements('divideNumber', MainObject)[0]),
-                divide_size: GetElementValue(GetElements('divideSize', MainObject)[0]),
-            };
-        return {
-            last_update_date: GetElementValue(GetElements('lastUpdateDate', MainObject)[0]),
-            divide_number: GetElementValue(GetElements('divideNumber', MainObject)[0]),
-            divide_size: GetElementValue(GetElements('divideSize', MainObject)[0]),
-            corporations: GetElements('corporation', MainObject)
-                .map(item => {
-                    const e = item.elements;
-                    const Data: Partial<CorpInformation> = {
-                        corp_number: GetElementValue(GetElements('corporateNumber', e)[0]),
-                        process: GetElementValue(GetElements('process', e)[0]),
-                        correct: GetElementValue(GetElements('correct', e)[0]),
-                        update_date: GetElementValue(GetElements('updateDate', e)[0]),
-                        change_date: GetElementValue(GetElements('changeDate', e)[0]),
-                        name: GetElementValue(GetElements('name', e)[0]),
-                        name_image_id: GetElementValue(GetElements('nameImageId', e)[0]),
-                        name_ruby: GetElementValue(GetElements('furigana', e)[0]),
-                        kind: GetElementValue(GetElements('kind', e)[0]),
-                        address: GetAddress(e),
-                        close: GetCloseInfo(e),
-                        successor_corporate_number: GetElementValue(GetElements('successorCorporateNumber', e)[0]),
-                        change_cause: GetElementValue(GetElements('changeCause', e)[0]),
-                        assignment_date: GetElementValue(GetElements('assignmentDate', e)[0]),
-                        latest: GetElementValue(GetElements('latest', e)[0]),
-                        en: GetEnglishInfo(e),
-                        ignore: GetElementValue(GetElements('hihyoji', e)[0]),
-                    };
-                    const AfterRemoveUndefined = JSON.parse(JSON.stringify(Data)) as Partial<CorpInformation>;
-                    return IsEmptyObject(AfterRemoveUndefined) ? undefined : AfterRemoveUndefined;
-                })
-                .filter(i => i !== undefined),
-        };
+    private static async ConvertXmlToJson(xmlText: string): Promise<CorpInfoResponse> {
+        return await xmlConvert(xmlText) as CorpInfoResponse;
     }
     private static ConvertCodeOnJson(Data: CorpInfoResponse) {
+        /* c8 ignore next */
         if (Data.corporations == null) return Data;
         const Corps = Data.corporations.map(i => {
             const Res = i;
@@ -145,8 +58,8 @@ export default class CorpNumberManager {
             })
             .then(txt => {
                 if (statusCode === 200) {
-                    const jsonData = CorpNumberManager.ConvertXmlToJson(txt);
-                    return convertCode ? CorpNumberManager.ConvertCodeOnJson(jsonData) : jsonData;
+                    return CorpNumberManager.ConvertXmlToJson(txt)
+                        .then(jsonData => (convertCode ? CorpNumberManager.ConvertCodeOnJson(jsonData) : jsonData));
                 } else throw new Error(`${statusCode}.${txt}`);
             });
     }

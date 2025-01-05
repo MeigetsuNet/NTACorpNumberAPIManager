@@ -1,7 +1,8 @@
 {
     "name": "ntacorpnumberapimanager",
-    "version": "1.0.6-patch02",
+    "version": "1.1.0",
     "description": "国税庁法人番号ＡＰＩリクエストマネージャー",
+    "type": "module",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
     "types": "dist/@types/index.d.ts",
@@ -36,7 +37,6 @@
         "@types/assert": "^1.5.6",
         "@types/mocha": "^10.0.1",
         "@types/node": "^22.5.4",
-        "@types/xml-js": "^1.0.0",
         "@typescript-eslint/eslint-plugin": "^8.5.0",
         "@typescript-eslint/parser": "^8.5.0",
         "assert": "^2.1.0",
@@ -52,6 +52,6 @@
         "typescript": "^5.2.2"
     },
     "dependencies": {
-        "xml-js": "^1.6.11"
+        "ntacorpnumberapimanager-xmlparser": "^1.0.0-patch01"
     }
 }
